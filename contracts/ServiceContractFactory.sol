@@ -1,4 +1,6 @@
-import "./ServiceContract";
+pragma solidity ^0.4.2;
+
+import "./ServiceContract.sol";
 
 
 contract ServiceContractFactory {
@@ -9,8 +11,8 @@ contract ServiceContractFactory {
 	event NewContractDeployed(address indexed addr);
 
 
-	function ServiceContractFactory() {
-
+	function ServiceContractFactory(address beneficiary_) {
+		beneficiary = beneficiary;
 	}
 
 	function () payable {

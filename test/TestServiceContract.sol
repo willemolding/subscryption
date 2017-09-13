@@ -31,7 +31,9 @@ contract TestServiceContract {
 
 		bytes6 userID = "123456";
 		Assert.equal(sc.isPaid(userID), false, "User has not paid so function should return false");
+		Assert.equal(sc.balance, 0, "No ether has been send so balance should be zero");
 		sc.addEther.value(price).gas(30000)(userID);
+		Assert.equal(sc.balance, 0, "Sent ether should have been distributed so balance should be zero");
 		Assert.equal(sc.isPaid(userID), true, "User has paid so function should return true");
 
 	}
