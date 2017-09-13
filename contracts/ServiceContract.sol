@@ -16,18 +16,8 @@ contract ServiceContract {
 	// a record of how much wei has been paid by address. This is for partial Dapp mode
 	mapping(address => uint) addressBalances;
 
+	event PaymentReceived(address indexed sender, uint value);
 
-	// a modifier to distribute funds to the owner and beneficiary after doing what the function requires
-	modifier distributes() {
-		_;
-
-		uint beneficiaryCut = msg.value * beneficiaryShare;
-		uint ownerCut = msg.value - beneficiaryCut;
-
-		assert(beneficiaryCut+ownerCut == msg.value);
-		beneficiary.transfer(beneficiaryCut);
-		owner.transfer(ownerCut);
-	}
 
 	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint price_, uint beneficiaryShare_){
 		// sets the owner to the creator of the contract. It is not necessarily the creator
@@ -57,8 +47,17 @@ contract ServiceContract {
 	// method to add ether to a userID. 
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
 	// no ether should ever be stored in the contract
-	function addEther(bytes6 userID) payable distributes{
+	function addEther(bytes6 userID) payable {
 		balances[userID] += msg.value;
+
+		uint beneficiaryCut = msg.value * beneficiaryShare;
+		uint ownerCut = msg.value - beneficiaryCut;
+
+		assert(beneficiaryCut+ownerCut == msg.value);
+		beneficiary.transfer(beneficiaryCut);
+		owner.transfer(ownerCut);
+
+		PaymentReceived(msg.sender, msg.value);
 	}
 
 

@@ -6,6 +6,8 @@ contract ServiceContractFactory {
 	address[] deployedContracts;
 	address beneficiary;
 
+	event NewContractDeployed(address indexed addr);
+
 
 	function ServiceContractFactory() {
 
@@ -23,6 +25,8 @@ contract ServiceContractFactory {
 			price, 
 			beneficiaryShare);
 		deployedContracts.push(newContract); 
+
+		NewContractDeployed(newContract);
 	}
 
 }
