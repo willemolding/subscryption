@@ -27,8 +27,8 @@ contract ServiceContract {
 		owner = owner_;
 		beneficiary = beneficiary_;
 		price = price_;
-		beneficiaryShare = beneficiaryShare_
-;		creator = msg.sender;
+		beneficiaryShare = beneficiaryShare_;
+		creator = msg.sender;
 	}
 
 	// fallback called when someones sends funds to this contract. This is not allowed at this time
@@ -53,10 +53,10 @@ contract ServiceContract {
 		balances[userID] = SafeMath.add(balances[userID], msg.value);
 
 		uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
-		uint256 ownerCut = SafeMath.sub(msg.value, beneficiaryCut);
-
+		//transfer the cut to the beneficiary
 		beneficiary.transfer(beneficiaryCut);
-		owner.transfer(ownerCut);
+		// transfer everything remaining to the owner
+		owner.transfer(this.balance);
 
 		PaymentReceived(msg.sender, msg.value);
 	}

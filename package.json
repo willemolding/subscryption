@@ -35,6 +35,11 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "file-loader": "^0.11.2",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "url-loader": "^0.5.9",
     "zeppelin-solidity": "^1.2.0"
   }
 }

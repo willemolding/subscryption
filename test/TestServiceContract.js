@@ -1,5 +1,7 @@
 
 var ServiceContract = artifacts.require("ServiceContract");
+var ServiceContractFactory = artifacts.require("ServiceContractFactory");
+
 
 contract('ServiceContract', function(accounts) {
 
@@ -13,13 +15,13 @@ contract('ServiceContract', function(accounts) {
 		var contractInstance;
 
 		var userID = "123456";
-		var weiToSend = web3.toWei(2, 'ether');
+		var weiToSend = web3.toWei(2.123, 'ether');
 
 		var acc0InitialBalance = web3.eth.getBalance(accounts[1]).toNumber();
 		var acc1InitialBalance = web3.eth.getBalance(accounts[2]).toNumber();
 
-		console.log("account 0 initial balance "+acc0InitialBalance);
-		console.log("account 1 initial balance "+acc1InitialBalance);
+		// console.log("account 0 initial balance "+acc0InitialBalance);
+		// console.log("account 1 initial balance "+acc1InitialBalance);
 
 		var benefShareFraction = web3.toWei(10, 'finney') / web3.toWei(1, 'ether');
 		console.log("beneficiary share is "+benefShareFraction);
@@ -40,12 +42,17 @@ contract('ServiceContract', function(accounts) {
 			var acc0FinalBalance = web3.eth.getBalance(accounts[1]).toNumber()
 			var acc1FinalBalance = web3.eth.getBalance(accounts[2]).toNumber()
 
-			console.log("account 0 final balance "+acc0FinalBalance);
-			console.log("account 1 final balance "+acc1FinalBalance);
+			// console.log("account 0 final balance "+acc0FinalBalance);
+			// console.log("account 1 final balance "+acc1FinalBalance);
 
 			assert.equal(web3.eth.getBalance(contractInstance.address).toNumber(), 0, "Transferred value should have been distributed");
 			assert.equal(acc0FinalBalance, acc0InitialBalance + weiToSend*(1.0-benefShareFraction), "Account 0 should receive owners cut");
 			assert.equal(acc1FinalBalance, acc1InitialBalance + weiToSend*benefShareFraction, "Account 1 should beneficiarys cut");
 		});
 	});
+});
+
+
+contract('ServiceContractFactory', function(accounts) {
+	
 });
