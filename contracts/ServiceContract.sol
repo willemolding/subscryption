@@ -14,9 +14,7 @@ contract ServiceContract {
 	uint256 public beneficiaryShare; // how much goes to the beneficiary in wei per ether
 
 	// a record of how much wei has been paid to each userID. This is for full Dapp mode
-	mapping(bytes6 => uint256) balances;
-	// a record of how much wei has been paid by address. This is for partial Dapp mode
-	mapping(address => uint256) addressBalances;
+	mapping(bytes6 => uint256) private balances;
 
 	event PaymentReceived(address indexed sender, uint256 value);
 
@@ -29,6 +27,9 @@ contract ServiceContract {
 		price = price_;
 		beneficiaryShare = beneficiaryShare_;
 		creator = msg.sender;
+
+		// check that the owner and beneficiary are both able to receive funds
+		
 	}
 
 	// fallback called when someones sends funds to this contract. This is not allowed at this time
@@ -37,28 +38,40 @@ contract ServiceContract {
 	}
 
 	// view function to find is a user has paid the required amount
-	function isPaid(bytes6 userID) constant returns (bool) {
+	function isPaid(bytes6 userID) public constant returns (bool) {
 		return balances[userID] >= price;
 	}
 
 	// gets the balance of a users account
-	function accountBalance(bytes6 userID) constant returns (uint256) {
+	function accountBalance(bytes6 userID) public constant returns (uint256) {
 		return balances[userID];
 	}
 
 	// method to add ether to a userID. 
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
-	// no ether should ever be stored in the contract for security reasons
-	function addEther(bytes6 userID) payable {
-		balances[userID] = SafeMath.add(balances[userID], msg.value);
+	// no ether should ever be stored in the contract 
+	function addEther(bytes6 userID) external payable {
+		if (msg.value > 0){
+			balances[userID] = SafeMath.add(balances[userID], msg.value);
 
-		uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
-		//transfer the cut to the beneficiary
-		beneficiary.transfer(beneficiaryCut);
-		// transfer everything remaining to the owner
-		owner.transfer(this.balance);
+			uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
+			
+			//transfer the cut to the beneficiary
+			// If this call fails then everything will be rolled back 
+			// no further code execution will occur
+			// The users funds will be recalled (minus gas)
+			beneficiary.transfer(beneficiaryCut);
 
-		PaymentReceived(msg.sender, msg.value);
+			// transfer everything remaining to the owner. 
+			// If this call fails then the beneficiary won't receive funds and the user won't be authenticated
+			// the users funds will be recalled though (minus gas)
+			// Another call can be used to recover these funds although the address cannot be changed
+			owner.transfer(this.balance);
+
+			//trigger event
+			PaymentReceived(msg.sender, msg.value);			
+		}
+
 	}
 
 

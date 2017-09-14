@@ -5,7 +5,7 @@ import "./ServiceContract.sol";
 
 contract ServiceContractFactory {
 
-	ServiceContract[] deployedContracts;
+	ServiceContract[] private deployedContracts;
 	address public beneficiary;
 
 	event NewContractDeployed(address indexed addr);
@@ -19,7 +19,7 @@ contract ServiceContractFactory {
 		revert();
 	}
 
-	function deployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) returns (ServiceContract) {
+	function deployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
 		ServiceContract newContract = new ServiceContract(
 			serviceName, 
 			msg.sender, 
@@ -32,11 +32,11 @@ contract ServiceContractFactory {
 		return newContract;
 	}
 
-	function numberOfDeployedContracts() constant returns (uint) {
+	function numberOfDeployedContracts() public constant returns (uint) {
 		return deployedContracts.length;
 	}
 
-	function getDeployedContractAtIndex(uint index) constant returns (ServiceContract) {
+	function getDeployedContractAtIndex(uint index) public constant returns (ServiceContract) {
 		return deployedContracts[index];
 	}
 

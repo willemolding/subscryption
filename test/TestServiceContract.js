@@ -54,5 +54,11 @@ contract('ServiceContract', function(accounts) {
 
 
 contract('ServiceContractFactory', function(accounts) {
-	
+	it("should allow service contract creation", function() {
+
+	});
+
+	it("should correctly assign owner, creator and beneficiary addresses". function() {
+
+	});
 });
