@@ -5,8 +5,8 @@ import "./ServiceContract.sol";
 
 contract ServiceContractFactory {
 
-	address[] deployedContracts;
-	address beneficiary;
+	address[] public deployedContracts;
+	address public beneficiary;
 
 	event NewContractDeployed(address indexed addr);
 
@@ -19,7 +19,7 @@ contract ServiceContractFactory {
 		revert();
 	}
 
-	function DeployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) {
+	function deployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) returns (address) {
 		address newContract = new ServiceContract(
 			serviceName, 
 			msg.sender, 
@@ -29,6 +29,7 @@ contract ServiceContractFactory {
 		deployedContracts.push(newContract); 
 
 		NewContractDeployed(newContract);
+		return newContract;
 	}
 
 }
