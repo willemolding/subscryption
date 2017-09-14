@@ -6,12 +6,12 @@ contract ServiceContract {
 
 	bytes32 public serviceName; // name of the service that is being subscribed to
 
-	address owner; // address of the owner of the service that is being paid for. Also the owner of the contract
-	address creator; // who created the contract. They do not have any special privilages
-	address beneficiary; // address of party that gets a fraction of proceeds
+	address public owner; // address of the owner of the service that is being paid for. Also the owner of the contract
+	address public creator; // who created the contract. They do not have any special privilages
+	address public beneficiary; // address of party that gets a fraction of proceeds
 
 	uint256 public price; // how much the service costs in wei
-	uint256 beneficiaryShare; // how much goes to the beneficiary in wei per ether
+	uint256 public beneficiaryShare; // how much goes to the beneficiary in wei per ether
 
 	// a record of how much wei has been paid to each userID. This is for full Dapp mode
 	mapping(bytes6 => uint256) balances;
