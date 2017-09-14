@@ -50,10 +50,10 @@ contract ServiceContract {
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
 	// no ether should ever be stored in the contract for security reasons
 	function addEther(bytes6 userID) payable {
-		balances[userID] += msg.value;
+		balances[userID] = SafeMath.add(balances[userID], msg.value);
 
-		uint256 beneficiaryCut = msg.value * beneficiaryShare / 1 ether;
-		uint256 ownerCut = msg.value - beneficiaryCut;
+		uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
+		uint256 ownerCut = SafeMath.sub(msg.value, beneficiaryCut);
 
 		beneficiary.transfer(beneficiaryCut);
 		owner.transfer(ownerCut);

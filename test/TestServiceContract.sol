@@ -73,7 +73,4 @@ contract TestServiceContract {
 
 	}
 
-
-
-
 }
