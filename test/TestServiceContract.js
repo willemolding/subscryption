@@ -54,11 +54,39 @@ contract('ServiceContract', function(accounts) {
 
 
 contract('ServiceContractFactory', function(accounts) {
-	it("should allow service contract creation", function() {
+	it("should have been deployed to the test chain", function() {
+		return ServiceContractFactory.deployed().then(function(instance) {
 
+		});
 	});
 
-	it("should correctly assign owner, creator and beneficiary addresses". function() {
+	it("should create and store serviceContracts", function() {
+		var contractInstance;
+		return ServiceContractFactory.deployed().then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.deployNewContract("test app contract", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+				{from: accounts[0]});
+		}).then(function(result) {
+			return contractInstance.numberOfDeployedContracts();
+		}).then(function(result) {
+			assert.equal(result, 1, "One contract should be deployed");
+		});
+	});
 
+	it("should correctly assign owner address to generated contract", function() {
+		var contractInstance;
+		return ServiceContractFactory.deployed().then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.deployNewContract("test app contract", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+				{from: accounts[0]});
+		}).then(function(result) {
+			return contractInstance.getDeployedContractAtIndex(0);
+		}).then(function(deployedContractAddress) {
+			return ServiceContract.at(deployedContractAddress);
+		}).then(function(deployedContract) {
+			return deployedContract.owner();
+		}).then(function(ownerAddress) {
+			assert.equal(ownerAddress, accounts[0]); 
+		});
 	});
 });
