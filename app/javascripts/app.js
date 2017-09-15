@@ -47,16 +47,23 @@ window.App = {
 
 	renderCreateNewServiceContractPage: function() {
 
-	}
+	},
 
 	renderSendPaymentsPage: function() {
 
-	}
+	},
 
 	deployNewServiceContract: function() {
+		var appName = window.getElementById("appNameInput").value;
+		var price =  window.getElementById("appPriceInput").value;
+		var beneficiaryShare = window.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
+
 		ServiceContractFactory.deployed().then(function(instance) {
-			instance.
-		});
+			return instance.deployNewContract(appName, price, beneficiaryShare,
+				{from: accounts[0]});
+		}).then(function(result) {
+			//verify that the contract was deployed successfully
+		})
 	},
 
 	addEtherToAccount: function() {
