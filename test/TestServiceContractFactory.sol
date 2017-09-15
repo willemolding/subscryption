@@ -6,6 +6,14 @@ import "../contracts/ServiceContractFactory.sol";
 
 
 contract TestServiceContractFactory {
+
+	uint public initialBalance = 10 ether;
+
+	// needed to test the creator can accept payments in the constructor
+	function () payable {
+
+	}
+
 	function testConstructor() {
 		ServiceContractFactory factory = new ServiceContractFactory(msg.sender);
 		Assert.equal(factory.beneficiary(), msg.sender, "beneficiary should be assigned by the constructor");

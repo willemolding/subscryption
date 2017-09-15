@@ -1,8 +1,8 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.11;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
-contract ServiceContract {
+contract ServiceContract{
 
 	bytes32 public serviceName; // name of the service that is being subscribed to
 
@@ -19,7 +19,9 @@ contract ServiceContract {
 	event PaymentReceived(address indexed sender, uint256 value);
 
 
-	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint256 price_, uint256 beneficiaryShare_){
+	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint256 price_, uint256 beneficiaryShare_) payable {
+		require(msg.value == 0); // do not allow payments to this contract ever
+
 		// sets the owner to the creator of the contract. It is not necessarily the creator
 		serviceName = serviceName_;
 		owner = owner_;
@@ -29,12 +31,14 @@ contract ServiceContract {
 		creator = msg.sender;
 
 		// check that the owner and beneficiary are both able to receive funds
-		
+		// this costs gas but the contract is useless otherwise
+		// these will revert if unsuccessful erasing the created contract
+		owner.transfer(0);
+		beneficiary.transfer(0);
 	}
 
-	// fallback called when someones sends funds to this contract. This is not allowed at this time
-	function() payable {
-		revert();
+	// fallback does not have payable modifier to direct payments are disallowed
+	function() external {
 	}
 
 	// view function to find is a user has paid the required amount

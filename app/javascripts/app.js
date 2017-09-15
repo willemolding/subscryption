@@ -45,6 +45,10 @@ window.App = {
 
 		});
 
+		var hash = window.location.hash.substring(1)
+		console.log(hash);
+		App.renderSendEtherForm(hash);
+
 	},
 	// add more functions to the app here
 
@@ -61,7 +65,13 @@ window.App = {
 		ServiceContractFactory.deployed().then(function(instance) {
 			return instance.getContractAddressFromName(web3.toHex(appName));
 		}).then(function(address) {
-			return ServiceContract.at(address).price();
+			if(address != 0) {
+				return ServiceContract.at(address);				
+			} else {
+				throw "An app with this name does not exist";
+			}
+		}).then(function(serviceContract) {
+			return serviceContract.price();
 		}).then(function(price) {
 			console.log(price);
 			priceField.value = web3.fromWei(price, 'ether');
@@ -70,8 +80,8 @@ window.App = {
 	},
 
 	updateSendEtherForm: function() {
-		var purchasePrice = document.getElementById("purchasePrice").value;
-		var tip = document.getElementById("tip").value;
+		var purchasePrice = Number(document.getElementById("purchasePrice").value);
+		var tip = Number(document.getElementById("tip").value);
 		var totalPayment = purchasePrice + tip;
 		document.getElementById("totalPayment").innerHTML = totalPayment;
 	},
@@ -94,13 +104,28 @@ window.App = {
 			console.log(result);
 			var newContractAddress = result.logs[0].args.newContractAddress
 			console.log("New Contract at address: \n"+newContractAddress);
-			App.renderSendEtherForm(web3.toAscii(result.logs[0].args.newContractServiceName));
-
 		});
 	},
 
 	addEtherToAccount: function() {
+		console.log("Adding ether to account");
 
+		var purchasePrice = Number(document.getElementById("purchasePrice").value);
+		var tip = Number(document.getElementById("tip").value);
+		var totalPayment = purchasePrice + tip;
+
+		var appName = window.location.hash.substring(1);
+		var userID = document.getElementById("userID").value;
+
+		ServiceContractFactory.deployed().then(function(instance) {
+			return instance.getContractAddressFromName(web3.toHex(appName));
+		}).then(function(address) {
+			return ServiceContract.at(address);
+		}).then(function(serviceContract) {
+			return serviceContract.addEther(userID, {from: accounts[0], value: web3.toWei(totalPayment)});
+		}).then(function(result) {
+			console.log("ether successfully send to account");
+		});
 	},
 
 
