@@ -1,9 +1,11 @@
 pragma solidity ^0.4.11;
 
 import "./ServiceContract.sol";
+import "zeppelin-solidity/contracts/ownership/HasNoEther.sol";
+// HasNoEther also makes the contract ownable by the creator
 
 
-contract ServiceContractFactory {
+contract ServiceContractFactory is HasNoEther {
 
 	ServiceContract[] private deployedContracts;
 	address public beneficiary;
@@ -16,9 +18,6 @@ contract ServiceContractFactory {
 		beneficiary = beneficiary_;
 	}
 
-	function () payable {
-		revert();
-	}
 
 	function deployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
 		ServiceContract newContract = new ServiceContract(

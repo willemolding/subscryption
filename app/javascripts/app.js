@@ -86,6 +86,32 @@ window.App = {
 		document.getElementById("totalPayment").innerHTML = totalPayment;
 	},
 
+	updateNewContractForm: function() {
+		var sliderValue = document.getElementById("appDonationInput").value;
+		document.getElementById("donationSliderValueLabel").innerHTML = sliderValue
+		var message = "";
+		if(sliderValue == 0) {
+			message = "Aww come on don't be like that...";
+		} else if(sliderValue < 3) {
+			message = "Better than nothing I guess";
+		} else if(sliderValue < 5) {
+			message = "Getting there"
+		} else if(sliderValue < 10) {
+			message = "Thanks, we really appreciate it";
+		} else if(sliderValue < 20) {
+			message = "Amazing contribution! Thanks";
+		} else if(sliderValue < 27) {
+			message = "This is how much of a cut Kiezel pay would be taking";
+		} else if(sliderValue < 50) {
+			message = "Wow are you sure?";
+		} else if(sliderValue < 100) {
+			message = "OMG amazing!!!!!";
+		} else if(sliderValue == 100) {
+			message = "You sir, are a LEGEND";
+		}
+		document.getElementById("messageToUser").innerHTML = message;
+	},
+
 	deployNewServiceContract: function() {
 		var appName = document.getElementById("appNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
@@ -134,7 +160,7 @@ window.App = {
 window.addEventListener('load', function() {
 	// Checking if Web3 has been injected by the browser (Mist/MetaMask)
 	if (typeof web3 !== 'undefined') {
-		console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")
+		console.warn("Using web3 detected from external source. ");
 		// Use Mist/MetaMask's provider
 		window.web3 = new Web3(web3.currentProvider);
 	} else {

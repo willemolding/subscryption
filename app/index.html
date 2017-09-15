@@ -12,17 +12,22 @@
      <div class="col-lg-12">
       <h1>Create a new payment contract for your app</h1>
        <form id="newContractForm" onsubmit="event.preventDefault(); App.deployNewServiceContract();">
+
          <div class="form-group">
            <label for="appNameInput">App name</label>
            <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
          </div>
+
          <div class="form-group">
            <label for="appPriceInput">Price in eth</label>
            <input required type="number" min="0" max="" step="0.000000000000000001" class="form-control" id="appPriceInput" placeholder="0.001">
          </div>
+
          <div class="form-group">
            <label for="appDonationInput">Donation per sale</label>
-           <input type="range" class="form-control" id="appDonationInput" value="5" min="0" max="100" step="0.1">
+           <input type="range" class="form-control" id="appDonationInput" value="5" min="0" max="100" step="0.1" oninput="App.updateNewContractForm();">
+           <span style="font-weight: bold;"><span id=donationSliderValueLabel>5</span>%</span>
+           <span id="messageToUser"></span>
          </div>
 
          <button type="submit" class="btn btn-default">Deploy</button>
@@ -33,20 +38,25 @@
       <h1>Purchase a subscription for <span id="appName" style="font-weight: bold;">App Name</span></h1>
 
        <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount();">
+
          <div class="form-group">
            <label for="userID">User ID</label>
            <input pattern=".{6,6}" required class="form-control" maxlength=6 id="userID" placeholder="123ABC">
          </div>
+
          <div class="form-group">
-           <label for="purchasePrice">Price in eth</label>
+           <label for="purchasePrice">Price in Ether</label>
            <input type="number" class="form-control" id="purchasePrice" readonly>
-          <label for="tip">+ Tip</label>
+          <label for="tip">+ Optional Tip</label>
            <input required type="number" class="form-control" id="tip" min="0" max="" step="0.000000000000000001" placeholder="0.001" onchange="App.updateSendEtherForm();">
          </div>
+
          <div class="form-group">
           <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
         </div>
+
          <button type="submit" class="btn btn-default">Send Payment</button>
+
        </form>
      </div>
 
