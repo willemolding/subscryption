@@ -11,7 +11,7 @@
 
      <div class="col-lg-12">
       <h1>Create a new payment contract for your app</h1>
-       <form onsubmit="App.deployNewServiceContract(); return false;">
+       <form id="newContractForm" onsubmit="event.preventDefault(); App.deployNewServiceContract();">
          <div class="form-group">
            <label for="appNameInput">App name</label>
            <input type="text" class="form-control" id="appNameInput" placeholder="My App">
@@ -32,7 +32,7 @@
      <div class="col-lg-12">
       <h1>Purchase a subscription for <span id="appName">App Name</span></h1>
 
-       <form onsubmit="App.addEtherToAccount(); return false;">
+       <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount(); return false;">
          <div class="form-group">
            <label for="userID">User ID</label>
            <input type="text" class="form-control" id="userID" maxlength="6" placeholder="123ABC">
@@ -41,16 +41,14 @@
            <label for="purchasePrice">Price in eth</label>
            <input type="number" class="form-control" id="purchasePrice" readonly>
           <label for="tip">+ Tip</label>
-           <input type="number" class="form-control" id="tip" placeholder="0.001">
+           <input type="number" class="form-control" id="tip" min="0" max="" step="0.000000000000000001" placeholder="0.001" onchange="App.updateSendEtherForm();">
          </div>
          <div class="form-group">
-          <h2>Total payment: <span id="totalPayment"></span></h2>
+          <h2>Total payment: <span id="totalPayment">0</span> Ether</h2>
         </div>
          <button type="submit" class="btn btn-default">Send Payment</button>
        </form>
      </div>
-
-
 
    </div>
  </div>

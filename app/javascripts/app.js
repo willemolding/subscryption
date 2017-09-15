@@ -18,6 +18,8 @@ var ServiceContractFactory = contract(service_contract_factory_artifacts);
 var accounts;
 var account;
 
+var MAX_GAS_LIMIT = 4476768; // this is just here for testing purposes
+
 window.App = {
 	start: function() {
 		var self = this;
@@ -42,28 +44,59 @@ window.App = {
 			account = accounts[0];
 
 		});
+
 	},
 	// add more functions to the app here
 
-	renderCreateNewServiceContractPage: function() {
+	renderCreateNewServiceContractForm: function() {
 
 	},
 
-	renderSendPaymentsPage: function() {
+	renderSendEtherForm: function(appName) {
+		// check that this app name has a valid contract and get its address
 
+		document.getElementById("appName").innerHTML = appName;
+		var priceField = document.getElementById("purchasePrice");
+
+		ServiceContractFactory.deployed().then(function(instance) {
+			return instance.getContractAddressFromName(web3.toHex(appName));
+		}).then(function(address) {
+			return ServiceContract.at(address).price();
+		}).then(function(price) {
+			console.log(price);
+			priceField.value = web3.fromWei(price, 'ether');
+			App.updateSendEtherForm();
+		});
+	},
+
+	updateSendEtherForm: function() {
+		var purchasePrice = document.getElementById("purchasePrice").value;
+		var tip = document.getElementById("tip").value;
+		var totalPayment = purchasePrice + tip;
+		document.getElementById("totalPayment").innerHTML = totalPayment;
 	},
 
 	deployNewServiceContract: function() {
-		var appName = window.getElementById("appNameInput").value;
-		var price =  window.getElementById("appPriceInput").value;
-		var beneficiaryShare = window.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
+		var appName = document.getElementById("appNameInput").value;
+		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
+		var beneficiaryShare = document.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
+
+		console.log("deploying new service contract:");
+		console.log(appName);
+		console.log(priceInWei);
+		console.log(beneficiaryShare);
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.deployNewContract(appName, price, beneficiaryShare,
-				{from: accounts[0]});
+			return instance.deployNewContract(appName, priceInWei, beneficiaryShare, 
+				{from: accounts[0], gas: MAX_GAS_LIMIT});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
-		})
+			console.log(result);
+			var newContractAddress = result.logs[0].args.newContractAddress
+			console.log("New Contract at address: \n"+newContractAddress);
+			App.renderSendEtherForm(web3.toAscii(result.logs[0].args.newContractServiceName));
+
+		});
 	},
 
 	addEtherToAccount: function() {

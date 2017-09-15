@@ -7,8 +7,9 @@ contract ServiceContractFactory {
 
 	ServiceContract[] private deployedContracts;
 	address public beneficiary;
+	mapping(bytes32 => ServiceContract) private deployedContractsByName;
 
-	event NewContractDeployed(address indexed addr);
+	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 
 
 	function ServiceContractFactory(address beneficiary_) {
@@ -27,8 +28,9 @@ contract ServiceContractFactory {
 			price, 
 			beneficiaryShare);
 		deployedContracts.push(newContract); 
+		deployedContractsByName[serviceName] = newContract;
 
-		NewContractDeployed(newContract);
+		NewContractDeployed(newContract, serviceName);
 		return newContract;
 	}
 
@@ -38,6 +40,10 @@ contract ServiceContractFactory {
 
 	function getDeployedContractAtIndex(uint index) public constant returns (ServiceContract) {
 		return deployedContracts[index];
+	}
+
+	function getContractAddressFromName(bytes32 name) public constant returns (ServiceContract) {
+		return deployedContractsByName[name];
 	}
 
 }

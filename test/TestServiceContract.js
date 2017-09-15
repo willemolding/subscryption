@@ -89,4 +89,21 @@ contract('ServiceContractFactory', function(accounts) {
 			assert.equal(ownerAddress, accounts[0]); 
 		});
 	});
+
+	it("should be able to retrieve a contract by name", function() {
+		var contractInstance;
+		return ServiceContractFactory.deployed().then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.deployNewContract("test123", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+				{from: accounts[0]});
+		}).then(function(result) {
+			return contractInstance.getContractAddressFromName("test123");
+		}).then(function(address) {
+			return ServiceContract.at(address);
+		}).then(function(serviceContract) {
+			return serviceContract.serviceName();
+		}).then(function(name) {
+			assert.equal(web3.toAscii(name).replace(/\0/g, ''), "test123", "Should have the name the contract was created with");
+		});
+	});
 });
