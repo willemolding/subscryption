@@ -21,7 +21,7 @@ contract ServiceContractFactory is HasNoEther {
 
 	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
 		
-		require(contractIndex[serviceUrlName] == 0); //require this url-name is not alread in use
+		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
 
 		ServiceContract newContract = new ServiceContract(
 			serviceName, 
@@ -31,7 +31,7 @@ contract ServiceContractFactory is HasNoEther {
 			beneficiaryShare);
 
 		deployedContracts.push(newContract); 
-		deployedContractsByName[serviceName] = newContract;
+		contractIndex[serviceUrlName] = newContract;
 
 		NewContractDeployed(newContract, serviceName);
 		return newContract;
