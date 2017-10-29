@@ -65,6 +65,8 @@ window.App = {
 		var nameField = document.getElementById("appName");
 		var priceField = document.getElementById("purchasePrice");
 
+		var contract;
+
 		ServiceContractFactory.deployed().then(function(instance) {
 			return instance.getDeployedContractByUrlName(web3.toHex(appUrlName));
 		}).then(function(address) {
@@ -74,8 +76,13 @@ window.App = {
 				throw "No contract exists with url name: "+appUrlName;
 			}		
 		}).then(function(serviceContract) {
-			priceField.value = web3.fromWei(serviceContract.price(), 'ether');
-			nameField.innerHTML = serviceContract.serviceName();
+			contract = serviceContract;
+			return contract.price();
+		}).then(function(price) {
+			priceField.value = web3.fromWei(price, 'ether');
+			return contract.serviceName();
+		}).then(function(name) {
+			nameField.innerHTML = web3.toAscii(name);
 			App.updateSendEtherForm();
 		}).catch(function(err) {
 			console.error(err);
