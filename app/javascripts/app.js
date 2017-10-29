@@ -46,10 +46,8 @@ window.App = {
 		});
 
 		var hash = window.location.hash.substring(1);
-		if (hash) { // if a hash exists in the url render the send ether form
-			console.log(hash);
-			App.renderSendEtherForm(hash);
-		}
+		console.log(hash);
+		App.renderSendEtherForm(hash);
 
 	},
 
