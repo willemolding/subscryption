@@ -25,7 +25,8 @@ contract TestServiceContractFactory {
 		uint price = 1 ether;
 		uint beneficiaryShare = 100 wei;
 		bytes32 serviceName = "name123";
-		ServiceContract newContract = factory.deployNewContract(serviceName, price, beneficiaryShare);
+		bytes32 serviceUrlName = "name123url";
+		ServiceContract newContract = factory.deployNewContract(serviceName, serviceUrlName, price, beneficiaryShare);
 
 		Assert.equal(newContract, factory.getDeployedContractAtIndex(0), "Deployed contract address should be returned and stored in the deployedContracts list");
 		Assert.equal(newContract.price(), price, "Price must be set from deployContract call");
@@ -43,9 +44,13 @@ contract TestServiceContractFactory {
 		uint price = 1 ether;
 		uint beneficiaryShare = 100 wei;
 		bytes32 serviceName = "name123";
-		ServiceContract newContract1 = factory.deployNewContract(serviceName, price, beneficiaryShare);
-		ServiceContract newContract2 = factory.deployNewContract(serviceName, price, beneficiaryShare);
-		ServiceContract newContract3 = factory.deployNewContract(serviceName, price, beneficiaryShare);
+		bytes32 serviceUrlName1 = "name123url1";
+		bytes32 serviceUrlName2 = "name123url2";
+		bytes32 serviceUrlName3 = "name123url3"; // urlnames must be unique
+
+		ServiceContract newContract1 = factory.deployNewContract(serviceName, serviceUrlName1, price, beneficiaryShare);
+		ServiceContract newContract2 = factory.deployNewContract(serviceName, serviceUrlName2, price, beneficiaryShare);
+		ServiceContract newContract3 = factory.deployNewContract(serviceName, serviceUrlName3, price, beneficiaryShare);
 
 		Assert.equal(factory.numberOfDeployedContracts(), 3, "The contract should record that 3 contracts have been deployed");
 		Assert.equal(newContract1, factory.getDeployedContractAtIndex(0), "First deployed contract must be at start of list");

@@ -2,14 +2,14 @@ pragma solidity ^0.4.11;
 
 import "./ServiceContract.sol";
 import "zeppelin-solidity/contracts/ownership/HasNoEther.sol";
-// HasNoEther also makes the contract ownable by the creator
+// HasNoEther also makes the contract ownable by the creator (not sure if we want this...)
 
 
 contract ServiceContractFactory is HasNoEther {
 
 	ServiceContract[] private deployedContracts;
+	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
 	address public beneficiary;
-	mapping(bytes32 => ServiceContract) private deployedContractsByName;
 
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 
@@ -19,15 +19,19 @@ contract ServiceContractFactory is HasNoEther {
 	}
 
 
-	function deployNewContract(bytes32 serviceName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
+	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
+		
+		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
+
 		ServiceContract newContract = new ServiceContract(
 			serviceName, 
 			msg.sender, 
 			beneficiary, 
 			price, 
 			beneficiaryShare);
+
 		deployedContracts.push(newContract); 
-		deployedContractsByName[serviceName] = newContract;
+		contractIndex[serviceUrlName] = newContract;
 
 		NewContractDeployed(newContract, serviceName);
 		return newContract;
@@ -41,8 +45,8 @@ contract ServiceContractFactory is HasNoEther {
 		return deployedContracts[index];
 	}
 
-	function getContractAddressFromName(bytes32 name) public constant returns (ServiceContract) {
-		return deployedContractsByName[name];
+	function getDeployedContractByUrlName(bytes32 serviceUrlName) public constant returns (ServiceContract) {
+		return contractIndex[serviceUrlName];
 	}
 
 }

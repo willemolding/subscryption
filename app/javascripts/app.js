@@ -45,37 +45,45 @@ window.App = {
 
 		});
 
-		var hash = window.location.hash.substring(1)
+		var hash = window.location.hash.substring(1);
 		console.log(hash);
 		App.renderSendEtherForm(hash);
 
 	},
-	// add more functions to the app here
 
 	renderCreateNewServiceContractForm: function() {
 
 	},
 
-	renderSendEtherForm: function(appName) {
+	renderSendEtherForm: function(appUrlName) {
+
+		console.log("rendering send ether form for "+appUrlName);
 		// check that this app name has a valid contract and get its address
 
-		document.getElementById("appName").innerHTML = appName;
+		var nameField = document.getElementById("appName");
 		var priceField = document.getElementById("purchasePrice");
 
+		var contract;
+
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.getContractAddressFromName(web3.toHex(appName));
+			return instance.getDeployedContractByUrlName(web3.toHex(appUrlName));
 		}).then(function(address) {
-			if(address != 0) {
-				return ServiceContract.at(address);				
-			} else {
-				throw "An app with this name does not exist";
-			}
+			try {
+				return ServiceContract.at(address);
+			} catch (err) {
+				throw "No contract exists with url name: "+appUrlName;
+			}		
 		}).then(function(serviceContract) {
-			return serviceContract.price();
+			contract = serviceContract;
+			return contract.price();
 		}).then(function(price) {
-			console.log(price);
 			priceField.value = web3.fromWei(price, 'ether');
+			return contract.serviceName();
+		}).then(function(name) {
+			nameField.innerHTML = web3.toAscii(name);
 			App.updateSendEtherForm();
+		}).catch(function(err) {
+			console.error(err);
 		});
 	},
 
@@ -101,7 +109,7 @@ window.App = {
 		} else if(sliderValue < 20) {
 			message = "Amazing contribution! Thanks";
 		} else if(sliderValue < 27) {
-			message = "This is how much of a cut Kiezel pay would be taking";
+			message = "This is how much of a cut KiezelPay would be taking ;)";
 		} else if(sliderValue < 50) {
 			message = "Wow are you sure?";
 		} else if(sliderValue < 100) {
@@ -114,22 +122,26 @@ window.App = {
 
 	deployNewServiceContract: function() {
 		var appName = document.getElementById("appNameInput").value;
+		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
 		var beneficiaryShare = document.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
 
 		console.log("deploying new service contract:");
 		console.log(appName);
+		console.log(appUrlName);
 		console.log(priceInWei);
 		console.log(beneficiaryShare);
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.deployNewContract(appName, priceInWei, beneficiaryShare, 
+			return instance.deployNewContract(appName, appUrlName, priceInWei, beneficiaryShare, 
 				{from: accounts[0], gas: MAX_GAS_LIMIT});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
 			console.log(result);
 			var newContractAddress = result.logs[0].args.newContractAddress
 			console.log("New Contract at address: \n"+newContractAddress);
+		}).catch(function(err) {
+			console.error(err);
 		});
 	},
 
@@ -140,21 +152,25 @@ window.App = {
 		var tip = Number(document.getElementById("tip").value);
 		var totalPayment = purchasePrice + tip;
 
-		var appName = window.location.hash.substring(1);
+		var appUrlName = window.location.hash.substring(1);
 		var userID = document.getElementById("userID").value;
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.getContractAddressFromName(web3.toHex(appName));
+			return address = instance.getDeployedContractByUrlName(web3.toHex(appUrlName));
 		}).then(function(address) {
-			return ServiceContract.at(address);
+			try {
+				return ServiceContract.at(address);
+			} catch (err) {
+				throw "No contract exists with url name: "+appUrlName;
+			}
 		}).then(function(serviceContract) {
 			return serviceContract.addEther(userID, {from: accounts[0], value: web3.toWei(totalPayment)});
 		}).then(function(result) {
 			console.log("ether successfully send to account");
+		}).catch(function(err) {
+			console.error(err);
 		});
 	},
-
-
 };
 
 window.addEventListener('load', function() {
