@@ -19,7 +19,7 @@ contract ServiceContractFactory is HasNoEther {
 	}
 
 
-	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint price, uint beneficiaryShare) external returns (ServiceContract) {
+	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint price, uint256 billingPeriod, uint beneficiaryShare) external returns (ServiceContract) {
 		
 		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
 
@@ -28,6 +28,7 @@ contract ServiceContractFactory is HasNoEther {
 			msg.sender, 
 			beneficiary, 
 			price, 
+			billingPeriod,
 			beneficiaryShare);
 
 		deployedContracts.push(newContract); 
