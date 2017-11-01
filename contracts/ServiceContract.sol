@@ -50,7 +50,12 @@ contract ServiceContract{
 
 	// view function to find is a user has paid the required amount at the current time
 	function isEnabled(bytes6 userID) public constant returns (bool) {
-		return accounts[userID].paidUntil >= block.timestamp;
+		if (billingPeriod > 0) {
+			return accounts[userID].paidUntil >= block.timestamp;
+		}
+		else {
+			return accounts[userID].totalPaid >= price;
+		}
 	}
 
 	// gets the value the user has paid to their account

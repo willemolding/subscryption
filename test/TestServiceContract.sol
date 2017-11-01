@@ -27,7 +27,7 @@ contract TestServiceContract {
 		address owner = msg.sender;
 		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
-		uint256 billingPeriod = 1 days;
+		uint256 billingPeriod = 0;
 		uint256 share = 100 finney;
 		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
 
@@ -45,7 +45,7 @@ contract TestServiceContract {
 		address owner = msg.sender;
 		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
-		uint256 billingPeriod = 1 days;
+		uint256 billingPeriod = 0;
 		uint256 share = 100 finney;
 		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
 
@@ -64,7 +64,7 @@ contract TestServiceContract {
 		address owner = msg.sender;
 		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
-		uint256 billingPeriod = 1 days;
+		uint256 billingPeriod = 0;
 		uint256 share = 100 finney;
 		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
 

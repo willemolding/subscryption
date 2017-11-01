@@ -32,6 +32,7 @@ contract('ServiceContract', function(accounts) {
 			accounts[1],
 			accounts[2],
 			web3.toWei(1, 'ether'),
+			0, //one-time-purchase contract
 			web3.toWei(10, 'finney')
 			)
 		.then(function(instance) {

@@ -15,7 +15,7 @@ contract('ServiceContractFactory', function(accounts) {
 		var contractInstance;
 		return ServiceContractFactory.deployed().then(function(instance) {
 			contractInstance = instance;
-			return contractInstance.deployNewContract("test app contract", "testurl1", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+			return contractInstance.deployNewContract("test app contract", "testurl1", web3.toWei(0.3, 'ether'), 0, web3.toWei(0.01, 'ether'), 
 				{from: accounts[0]});
 		}).then(function(result) {
 			return contractInstance.numberOfDeployedContracts();
@@ -28,7 +28,7 @@ contract('ServiceContractFactory', function(accounts) {
 		var contractInstance;
 		return ServiceContractFactory.deployed().then(function(instance) {
 			contractInstance = instance;
-			return contractInstance.deployNewContract("test app contract", "testurl2", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+			return contractInstance.deployNewContract("test app contract", "testurl2", web3.toWei(0.3, 'ether'), 0, web3.toWei(0.01, 'ether'), 
 				{from: accounts[0]});
 		}).then(function(result) {
 			return contractInstance.getDeployedContractAtIndex(0);
@@ -45,7 +45,7 @@ contract('ServiceContractFactory', function(accounts) {
 		var contractInstance;
 		return ServiceContractFactory.deployed().then(function(instance) {
 			contractInstance = instance;
-			return contractInstance.deployNewContract("test123", "testurl3", web3.toWei(0.3, 'ether'), web3.toWei(0.01, 'ether'), 
+			return contractInstance.deployNewContract("test123", "testurl3", web3.toWei(0.3, 'ether'), 0, web3.toWei(0.01, 'ether'), 
 				{from: accounts[0]});
 		}).then(function(result) {
 			return contractInstance.getDeployedContractByUrlName("testurl3");
