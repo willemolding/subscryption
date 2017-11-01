@@ -156,7 +156,7 @@ window.App = {
 		var userID = document.getElementById("userID").value;
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return address = instance.getDeployedContractByUrlName(web3.toHex(appUrlName));
+			return instance.getDeployedContractByUrlName(web3.toHex(appUrlName));
 		}).then(function(address) {
 			try {
 				return ServiceContract.at(address);
