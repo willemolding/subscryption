@@ -22,7 +22,6 @@ var MAX_GAS_LIMIT = 4476768; // this is just here for testing purposes
 
 window.App = {
 	start: function() {
-		var self = this;
 
 		// create the ServiceContract abstraction for Use.
 		ServiceContractFactory.setProvider(web3.currentProvider);

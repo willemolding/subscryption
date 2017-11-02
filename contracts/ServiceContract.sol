@@ -20,7 +20,7 @@ contract ServiceContract{
 	uint256 public beneficiaryShare; // how much goes to the beneficiary in wei per ether
 
 	// a mapping of userIDs to their account data
-	mapping(bytes6 => AccountData) private accounts;
+	mapping(bytes32 => AccountData) private accounts;
 
 	event PaymentReceived(address indexed sender, uint256 value);
 
@@ -44,12 +44,12 @@ contract ServiceContract{
 		beneficiary.transfer(0);
 	}
 
-	// fallback does not have payable modifier to direct payments are disallowed
+	// fallback does not have payable modifier so direct payments are disallowed
 	function() external {
 	}
 
 	// view function to find is a user has paid the required amount at the current time
-	function isEnabled(bytes6 userID) public constant returns (bool) {
+	function isEnabled(bytes32 userID) public constant returns (bool) {
 		if (billingPeriod > 0) {
 			return accounts[userID].paidUntil >= block.timestamp;
 		}
@@ -59,19 +59,19 @@ contract ServiceContract{
 	}
 
 	// gets the value the user has paid to their account
-	function getTotalPaid(bytes6 userID) public constant returns (uint256) {
+	function getTotalPaid(bytes32 userID) public constant returns (uint256) {
 		return accounts[userID].totalPaid;
 	}
 
     // gets the timestamp to which the user has paid
-    function getPaidUntil(bytes6 userID) public constant returns (uint256) {
+    function getPaidUntil(bytes32 userID) public constant returns (uint256) {
         return accounts[userID].paidUntil;
     }
 
 	// method to add ether to a userID. 
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
 	// no ether should ever be stored in the contract 
-	function addEther(bytes6 userID) external payable {
+	function addEther(bytes32 userID) external payable {
         require(msg.value > 0);
 
         accounts[userID].totalPaid = SafeMath.add(accounts[userID].totalPaid, msg.value);
