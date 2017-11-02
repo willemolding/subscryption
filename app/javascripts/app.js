@@ -125,6 +125,7 @@ window.App = {
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
 		var beneficiaryShare = document.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
+		var billingPeriodInSeconds = 0;
 
 		console.log("deploying new service contract:");
 		console.log(appName);
@@ -133,7 +134,7 @@ window.App = {
 		console.log(beneficiaryShare);
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.deployNewContract(appName, appUrlName, priceInWei, beneficiaryShare, 
+			return instance.deployNewContract(appName, appUrlName, priceInWei, billingPeriodInSeconds, beneficiaryShare, 
 				{from: accounts[0], gas: MAX_GAS_LIMIT});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
