@@ -1,8 +1,10 @@
 pragma solidity ^0.4.11;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
+import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract ServiceContract{
+
+contract ServiceContract is Ownable{
 
     struct AccountData {
         uint256 totalPaid; // The total value in wei the user has ever paid to the contract
@@ -23,6 +25,9 @@ contract ServiceContract{
 	mapping(bytes32 => AccountData) private accounts;
 
 	event PaymentReceived(address indexed sender, uint256 value);
+	event PriceChanged(uint256 oldPrice, uint256 newPrice);
+	event BillingPeriodChanged(uint256 oldBillingPeriod, uint256 newBillingPeriod);
+
 
 
 	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint256 price_, uint256 billingPeriod_, uint256 beneficiaryShare_) payable {
@@ -50,12 +55,7 @@ contract ServiceContract{
 
 	// view function to find is a user has paid the required amount at the current time
 	function isEnabled(bytes32 userID) public constant returns (bool) {
-		if (billingPeriod > 0) {
-			return accounts[userID].paidUntil >= block.timestamp;
-		}
-		else {
-			return accounts[userID].totalPaid >= price;
-		}
+		return accounts[userID].paidUntil >= block.timestamp;
 	}
 
 	// gets the value the user has paid to their account
@@ -77,11 +77,17 @@ contract ServiceContract{
         accounts[userID].totalPaid = SafeMath.add(accounts[userID].totalPaid, msg.value);
         uint256 paidDuration =  SafeMath.mul(msg.value, billingPeriod);
 
-        if (isEnabled(userID)) {
-            accounts[userID].paidUntil = SafeMath.add(accounts[userID].paidUntil, paidDuration);
-        } else {
-            accounts[userID].paidUntil = SafeMath.add(block.timestamp, paidDuration);
-        }
+        if (billingPeriod == 0) { // implies a one-off-payment service
+        	if (accounts[userID].totalPaid >= price) {
+        		accounts[userID].paidUntil = 2**256 - 1; //largest possible uint256. The end of time for our purposes
+        	}
+        } else { // subscription service
+			if (isEnabled(userID)) {
+	            accounts[userID].paidUntil = SafeMath.add(accounts[userID].paidUntil, paidDuration);
+	        } else {
+	            accounts[userID].paidUntil = SafeMath.add(block.timestamp, paidDuration);
+	        }
+        } 
 
         uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
 
@@ -103,5 +109,14 @@ contract ServiceContract{
 	}
 
 
+	function changePrice(uint256 newPrice) external onlyOwner {
+		PriceChanged(price, newPrice);
+		price = newPrice;
+	}
+
+	function changeBillingPeriod(uint256 newBillingPeriod) external onlyOwner {
+		BillingPeriodChanged(billingPeriod, newBillingPeriod);
+		billingPeriod = newBillingPeriod;
+	}
 
 }
