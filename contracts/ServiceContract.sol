@@ -1,10 +1,10 @@
 pragma solidity ^0.4.11;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract ServiceContract is Ownable{
+
+contract ServiceContract{
 
     struct AccountData {
         uint256 totalPaid; // The total value in wei the user has ever paid to the contract
@@ -27,7 +27,19 @@ contract ServiceContract is Ownable{
 	event PaymentReceived(address indexed sender, uint256 value);
 	event PriceChanged(uint256 oldPrice, uint256 newPrice);
 	event BillingPeriodChanged(uint256 oldBillingPeriod, uint256 newBillingPeriod);
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
+
+	modifier onlyOwner() {
+    	require(msg.sender == owner);
+    	_;
+  	}
+
+	function transferOwnership(address newOwner) onlyOwner public {
+		require(newOwner != address(0));
+		OwnershipTransferred(owner, newOwner);
+		owner = newOwner;
+	}
 
 
 	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint256 price_, uint256 billingPeriod_, uint256 beneficiaryShare_) payable {

@@ -15,7 +15,7 @@ contract('ServiceContract', function(accounts) {
 		var contractInstance;
 
 		var userID = "123456";
-		var weiToSend = web3.toWei(2.123, 'ether');
+		var weiToSend = web3.toWei(5, 'ether');
 
 		var acc0InitialBalance = web3.eth.getBalance(accounts[1]).toNumber();
 		var acc1InitialBalance = web3.eth.getBalance(accounts[2]).toNumber();
@@ -51,5 +51,136 @@ contract('ServiceContract', function(accounts) {
 			assert.equal(acc1FinalBalance, acc1InitialBalance + weiToSend*benefShareFraction, "Account 1 should beneficiarys cut");
 		});
 	});
+
+	it("Should allow price to be changed by the owner", function () {
+		let contractInstance;
+		let owner = accounts[1];
+		let beneficiary = accounts[2];
+
+		return ServiceContract
+		.new(
+			"name",
+			owner,
+			beneficiary,
+			web3.toWei(1, 'ether'),
+			0, //one-time-purchase contract
+			web3.toWei(10, 'finney'))
+		.then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.price();
+		})
+		.then(function (price){
+			return contractInstance.changePrice(web3.toWei(1, 'finney'), {from: owner});
+		})
+		.then(function(result) {
+			return contractInstance.price();
+		})
+		.then(function(price) {
+			assert.equal(price.toNumber(), web3.toWei(1, 'finney'), "New price should have been updated in contract");
+		});
+	});
+
+	it("Should NOT allow price to be changed by another address", function () {
+		let contractInstance;
+		let owner = accounts[1];
+		let beneficiary = accounts[2];
+
+		return ServiceContract
+		.new(
+			"name",
+			owner,
+			beneficiary,
+			web3.toWei(1, 'ether'),
+			0, //one-time-purchase contract
+			web3.toWei(10, 'finney'))
+		.then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.price();
+		})
+		.then(function (price){
+			return contractInstance.changePrice(web3.toWei(1, 'finney'), {from: beneficiary});
+		})
+		.then(assert.fail)
+        .catch(function(error) {
+            assert.include(
+                error.message,
+                'VM Exception while processing transaction: invalid opcode',
+                'Should throw invalid opcode if non-owner attempts to change price'
+            )
+         })
+        .then(function() {
+        	return contractInstance.price();
+        })
+        .then(function(price) {
+        	assert.equal(price.toNumber(), web3.toWei(1, 'ether'), "Price should be unchanged");
+        });
+	});
+
+
+	it("Should allow billing period to be changed by the owner", function () {
+		let contractInstance;
+		let owner = accounts[1];
+		let beneficiary = accounts[2];
+
+		return ServiceContract
+		.new(
+			"name",
+			owner,
+			beneficiary,
+			web3.toWei(1, 'ether'),
+			0, //one-time-purchase contract
+			web3.toWei(10, 'finney'))
+		.then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.billingPeriod();
+		})
+		.then(function (billingPeriod){
+			return contractInstance.changeBillingPeriod(10, {from: owner});
+		})
+		.then(function(result) {
+			return contractInstance.billingPeriod();
+		})
+		.then(function(billingPeriod) {
+			assert.equal(billingPeriod.toNumber(), 10, "New billingPeriod should have been updated in contract");
+		});
+	});
+
+
+	it("Should NOT allow billing period to be changed by another address", function () {
+		let contractInstance;
+		let owner = accounts[1];
+		let beneficiary = accounts[2];
+
+		return ServiceContract
+		.new(
+			"name",
+			owner,
+			beneficiary,
+			web3.toWei(1, 'ether'),
+			0, //one-time-purchase contract
+			web3.toWei(10, 'finney'))
+		.then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.billingPeriod();
+		})
+		.then(function (billingPeriod){
+			return contractInstance.changeBillingPeriod(10, {from: beneficiary});
+		})
+		.then(assert.fail)
+        .catch(function(error) {
+            assert.include(
+                error.message,
+                'VM Exception while processing transaction: invalid opcode',
+                'Should throw invalid opcode if non-owner attempts to change billing period'
+            )
+         })
+        .then(function() {
+        	return contractInstance.billingPeriod();
+        })
+        .then(function(billingPeriod) {
+        	assert.equal(billingPeriod.toNumber(), 0, "billingPeriod should be unchanged");
+        });
+	});
+
 });
 
