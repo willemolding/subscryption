@@ -55,8 +55,6 @@ contract TestServiceContract {
 		sc.addEther.value(price + 1 wei)(userID);
 		Assert.equal(sc.isEnabled(userID), true, "User has paid so function should return true");
 		Assert.equal(sc.balance, 0, "Sent ether should have been distributed so balance should be zero");
-
-
 	}
 
 	function testEnablingUserWithLessPayment() {
