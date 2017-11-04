@@ -87,7 +87,7 @@ contract ServiceContract{
         require(msg.value > 0);
 
         accounts[userID].totalPaid = SafeMath.add(accounts[userID].totalPaid, msg.value);
-        uint256 paidDuration =  SafeMath.mul(msg.value, billingPeriod);
+        uint256 paidDuration =  SafeMath.div(SafeMath.mul(msg.value, billingPeriod), price);
 
         if (billingPeriod == 0) { // implies a one-off-payment service
         	if (accounts[userID].totalPaid >= price) {

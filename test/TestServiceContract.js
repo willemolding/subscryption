@@ -52,6 +52,49 @@ contract('ServiceContract', function(accounts) {
 		});
 	});
 
+	it("should correctly calculate if a user is enabled based on the billing period and date", function() {
+		var contractInstance;
+
+		var userID = "123456";
+		var price = web3.toWei(1, 'ether');
+		var paidAmount = price;
+
+		return ServiceContract
+		.new(
+			"name",
+			accounts[0],
+			accounts[1],
+			price,
+			100000, // billing period in seconds. 1 *price* gets you a subscription for this many seconds
+			0 // no cut for the dev
+			)
+		.then(function(instance) {
+			contractInstance = instance;
+			return contractInstance.isEnabled(userID);
+		})
+		.then(function(isEnabled) {
+			assert.equal(isEnabled, false, "The user should not be enabled as they have not paid"); 
+		})
+		.then(function() {
+			return contractInstance.addEther(userID, {from: accounts[2], value: paidAmount});
+		})
+		.then(function(result) {
+			return contractInstance.isEnabled(userID);
+		})
+		.then(function(isEnabled) {
+			assert.equal(isEnabled, true, "The user should be enabled after paying"); 
+			return contractInstance.getTotalPaid(userID);
+		})
+		.then(function(totalPaid) {
+			assert.equal(totalPaid.toNumber(), paidAmount, "The users payments have been recorded"); 
+			return contractInstance.getPaidUntil(userID);
+		})
+		.then(function(paidUntil) {
+			console.log(paidUntil.toNumber());
+			assert.equal(paidUntil.toNumber() > 0, true, 'Paid until should be positive (this is a bad test...)')
+		});
+	});
+
 	it("Should allow price to be changed by the owner", function () {
 		let contractInstance;
 		let owner = accounts[1];
