@@ -65,7 +65,7 @@ contract('ServiceContract', function(accounts) {
 			accounts[0],
 			accounts[1],
 			price,
-			100000, // billing period in seconds. 1 *price* gets you a subscription for this many seconds
+			100000, // billing period. 1 *price* gets you a subscription for this many seconds
 			0 // no cut for the dev
 			)
 		.then(function(instance) {

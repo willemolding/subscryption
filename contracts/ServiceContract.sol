@@ -3,7 +3,6 @@ pragma solidity ^0.4.11;
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 
-
 contract ServiceContract{
 
     struct AccountData {

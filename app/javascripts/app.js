@@ -108,7 +108,7 @@ window.App = {
 		} else if(sliderValue < 20) {
 			message = "Amazing contribution! Thanks";
 		} else if(sliderValue < 27) {
-			message = "This is how much of a cut KiezelPay would be taking ;)";
+			message = "This is how much of a cut Apple would be taking ;)";
 		} else if(sliderValue < 50) {
 			message = "Wow are you sure?";
 		} else if(sliderValue < 100) {
