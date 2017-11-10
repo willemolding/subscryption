@@ -48,10 +48,10 @@ window.App = {
 		console.log(hash);
 		App.renderSendEtherForm(hash);
 
+
 	},
 
 	renderCreateNewServiceContractForm: function() {
-
 	},
 
 	renderSendEtherForm: function(appUrlName) {
@@ -180,9 +180,9 @@ window.addEventListener('load', function() {
 		// Use Mist/MetaMask's provider
 		window.web3 = new Web3(web3.currentProvider);
 	} else {
-		console.warn("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
-		// fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-		window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+		console.warn("No web3 detected. Only read-only calls permitted");
+		// fallback - use your fallback strategy (Infura Ethereum provider (using ropsten for now))
+		window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/siZtDG9vlqEzi7Jekeqt "));
 	}
 
 	App.start();
