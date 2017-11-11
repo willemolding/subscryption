@@ -87,7 +87,7 @@ window.App = {
 
 	updateSendEtherForm: function() {
 
-		document.getElementById("totalPayment").innerHTML = totalPayment;
+		document.getElementById("totalPayment").innerHTML = Number(document.getElementById("purchasePrice").value);
 	},
 
 	updateNewContractForm: function() {
@@ -122,7 +122,7 @@ window.App = {
 	addEtherToAccount: function() {
 		console.log("Adding ether to account");
 
-		var totalPayment = Number(document.getElementById("purchasePrice").value);;
+		var totalPayment = Number(document.getElementById("purchasePrice").value);
 
 		var appUrlName = window.location.hash.substring(1);
 		var userID = document.getElementById("userID").value;
