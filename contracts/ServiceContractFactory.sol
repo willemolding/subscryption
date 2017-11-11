@@ -13,9 +13,9 @@ contract ServiceContractFactory is Ownable {
 
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 	event BeneficiaryChanged(address oldBeneficiary, address newBeneficiary);
-	event BeneficiaryShareChanged(uint265 oldShare, uint256 newShare);
+	event BeneficiaryShareChanged(uint256 oldShare, uint256 newShare);
 
-	function ServiceContractFactory(address beneficiary_, uint265 beneficiaryShare_) {
+	function ServiceContractFactory(address beneficiary_, uint256 beneficiaryShare_) {
 		beneficiary = beneficiary_;
 		beneficiaryShare = beneficiaryShare_;
 		owner = msg.sender;
