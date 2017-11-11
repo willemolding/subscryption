@@ -17,7 +17,7 @@ contract ServiceContract{
 	address public beneficiary; // address of party that gets a fraction of proceeds
 
 	uint256 public price; // how much the service costs in wei per billing period
-	uint256 public billingPeriod; // Duration in seconds that is paid for by price. If 0 then only one-off payments are required
+	uint256 public billingPeriod; // Duration in seconds that is paid for by price. If 0 then only one-off payments are required. This is also the minimum allowable payment
 	uint256 public beneficiaryShare; // how much goes to the beneficiary in wei per ether
 
 	// a mapping of userIDs to their account data
@@ -83,15 +83,13 @@ contract ServiceContract{
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
 	// no ether should ever be stored in the contract 
 	function addEther(bytes32 userID) external payable {
-        require(msg.value > 0);
+        require(msg.value > price); // don't allow paying less than the minimum billing period
 
         accounts[userID].totalPaid = SafeMath.add(accounts[userID].totalPaid, msg.value);
         uint256 paidDuration =  SafeMath.div(SafeMath.mul(msg.value, billingPeriod), price);
 
         if (billingPeriod == 0) { // implies a one-off-payment service
-        	if (accounts[userID].totalPaid >= price) {
-        		accounts[userID].paidUntil = 2**256 - 1; //largest possible uint256. The end of time for our purposes
-        	}
+        	accounts[userID].paidUntil = 2**256 - 1; //largest possible uint256. The end of time for our purposes
         } else { // subscription service
 			if (isEnabled(userID)) {
 	            accounts[userID].paidUntil = SafeMath.add(accounts[userID].paidUntil, paidDuration);

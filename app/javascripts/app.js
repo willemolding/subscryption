@@ -107,8 +107,8 @@ window.App = {
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
-		var beneficiaryShare = web3.toWei(0.01, 'ether');
-		var billingPeriodInSeconds = 0;
+		var beneficiaryShare = web3.toWei(0.01, 'ether'); // remove this soon
+		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value;
 
 		console.log("deploying new service contract:");
 		console.log(appName);
