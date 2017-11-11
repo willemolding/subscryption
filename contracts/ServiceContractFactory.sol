@@ -9,18 +9,20 @@ contract ServiceContractFactory is Ownable {
 	ServiceContract[] private deployedContracts;
 	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
 	address public beneficiary;
+	uint256 beneficiaryShare;
 
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 	event BeneficiaryChanged(address oldBeneficiary, address newBeneficiary);
+	event BeneficiaryShareChanged(uint256 oldShare, uint256 newShare);
 
-
-	function ServiceContractFactory(address beneficiary_) {
+	function ServiceContractFactory(address beneficiary_, uint256 beneficiaryShare_) {
 		beneficiary = beneficiary_;
+		beneficiaryShare = beneficiaryShare_;
 		owner = msg.sender;
 	}
 
 
-	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod, uint256 beneficiaryShare) external returns (ServiceContract) {
+	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod) external returns (ServiceContract) {
 		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
 
 		ServiceContract newContract = new ServiceContract(
@@ -42,7 +44,7 @@ contract ServiceContractFactory is Ownable {
 		return deployedContracts.length;
 	}
 
-	function getDeployedContractAtIndex(uint index) public constant returns (ServiceContract) {
+	function getDeployedContractAtIndex(uint256 index) public constant returns (ServiceContract) {
 		return deployedContracts[index];
 	}
 
@@ -54,6 +56,11 @@ contract ServiceContractFactory is Ownable {
 		require(newBeneficiary != address(0));
 		BeneficiaryChanged(beneficiary, newBeneficiary);
 		beneficiary = newBeneficiary;
+	}
+
+	function changeBeneficiaryShare(uint256 newShare) onlyOwner public {
+		BeneficiaryShareChanged(beneficiaryShare, newShare);
+		beneficiaryShare = newShare;
 	}
 
 }
