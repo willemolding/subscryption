@@ -18,7 +18,6 @@ var ServiceContractFactory = contract(service_contract_factory_artifacts);
 var accounts;
 var account;
 
-var MAX_GAS_LIMIT = 4476768; // this is just here for testing purposes
 
 window.App = {
 	start: function() {
@@ -134,7 +133,7 @@ window.App = {
 
 		ServiceContractFactory.deployed().then(function(instance) {
 			return instance.deployNewContract(appName, appUrlName, priceInWei, billingPeriodInSeconds, beneficiaryShare, 
-				{from: accounts[0], gas: MAX_GAS_LIMIT});
+				{from: accounts[0]});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
 			console.log(result);
