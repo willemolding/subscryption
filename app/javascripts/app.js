@@ -47,6 +47,8 @@ window.App = {
 		console.log(hash);
 		App.renderSendEtherForm(hash);
 
+		$('#newContractForm').change(App.updateNewContractForm);
+		$('#addEtherForm').change(App.updateSendEtherForm);
 
 	},
 
@@ -91,6 +93,14 @@ window.App = {
 	},
 
 	updateNewContractForm: function() {
+		document.getElementById("priceDisplay").innerHTML = Number(document.getElementById("appPriceInput").value);
+		var billingPeriodSelect = document.getElementById("appBillingPeriodSelect");
+		if (billingPeriodSelect.value > 0) {
+			document.getElementById("intervalDisplay").innerHTML = "Per "+billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
+		} else {
+			document.getElementById("intervalDisplay").innerHTML = "One time payment";
+		}
+
 	},
 
 	deployNewServiceContract: function() {
@@ -141,7 +151,7 @@ window.App = {
 			console.log("ether successfully send to account");
 		}).catch(function(err) {
 			console.error(err);
-			
+
 		});
 	},
 };

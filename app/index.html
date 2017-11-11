@@ -29,18 +29,18 @@
          </div>
 
          <div class="form-group">
-            <label for="appPriceInput">Minimum Subscription</label>
-            <select type="select" class="form-control" id="billingPeriod">
-              <option value="0">One-off Payment</option>
-              <option value="86400">Day</option>
-              <option value="604800">Week</option>
-              <option value="2592000">Month</option>
-              <option value="31104000">Year</option>
+            <label for="appBillingPeriodSelect">Minimum Subscription</label>
+            <select type="select" class="form-control" id="appBillingPeriodSelect">
+              <option value="0">One Time Payment</option>
+              <option value="86400">1 Day</option>
+              <option value="604800">1 Week</option>
+              <option value="2592000">1 Month</option>
+              <option value="31104000">1 Year</option>
             </select>
          </div>
 
          <div class="form-group">
-          <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
+          <h2>Subscription will cost: <span id="priceDisplay" style="font-weight: bold;">0</span> Ether <span id="intervalDisplay" style="font-weight: bold;"></span></h2>
          </div>
 
          <button type="submit" class="btn btn-default">Deploy</button>
