@@ -86,43 +86,18 @@ window.App = {
 	},
 
 	updateSendEtherForm: function() {
-		var purchasePrice = Number(document.getElementById("purchasePrice").value);
-		var tip = Number(document.getElementById("tip").value);
-		var totalPayment = purchasePrice + tip;
+
 		document.getElementById("totalPayment").innerHTML = totalPayment;
 	},
 
 	updateNewContractForm: function() {
-		var sliderValue = document.getElementById("appDonationInput").value;
-		document.getElementById("donationSliderValueLabel").innerHTML = sliderValue
-		var message = "";
-		if(sliderValue == 0) {
-			message = "Aww come on don't be like that...";
-		} else if(sliderValue < 3) {
-			message = "Better than nothing I guess";
-		} else if(sliderValue < 5) {
-			message = "Getting there"
-		} else if(sliderValue < 10) {
-			message = "Thanks, we really appreciate it";
-		} else if(sliderValue < 20) {
-			message = "Amazing contribution! Thanks";
-		} else if(sliderValue < 27) {
-			message = "This is how much of a cut Apple would be taking ;)";
-		} else if(sliderValue < 50) {
-			message = "Wow are you sure?";
-		} else if(sliderValue < 100) {
-			message = "OMG amazing!!!!!";
-		} else if(sliderValue == 100) {
-			message = "You sir, are a LEGEND";
-		}
-		document.getElementById("messageToUser").innerHTML = message;
 	},
 
 	deployNewServiceContract: function() {
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
-		var beneficiaryShare = document.getElementById("appDonationInput").value / 100 * web3.toWei(1, 'ether');
+		var beneficiaryShare = web3.toWei(0.01, 'ether');
 		var billingPeriodInSeconds = 0;
 
 		console.log("deploying new service contract:");
@@ -147,9 +122,7 @@ window.App = {
 	addEtherToAccount: function() {
 		console.log("Adding ether to account");
 
-		var purchasePrice = Number(document.getElementById("purchasePrice").value);
-		var tip = Number(document.getElementById("tip").value);
-		var totalPayment = purchasePrice + tip;
+		var totalPayment = Number(document.getElementById("purchasePrice").value);;
 
 		var appUrlName = window.location.hash.substring(1);
 		var userID = document.getElementById("userID").value;

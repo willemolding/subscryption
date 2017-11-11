@@ -28,13 +28,6 @@
            <input required type="number" min="0" max="" step="0.000000000000000001" class="form-control" id="appPriceInput" placeholder="0.001">
          </div>
 
-         <div class="form-group">
-           <label for="appDonationInput">Donation per sale</label>
-           <input type="range" class="form-control" id="appDonationInput" value="5" min="0" max="100" step="0.1" oninput="App.updateNewContractForm();">
-           <span style="font-weight: bold;"><span id=donationSliderValueLabel>5</span>%</span>
-           <span id="messageToUser"></span>
-         </div>
-
          <button type="submit" class="btn btn-default">Deploy</button>
        </form>
      </div>
@@ -52,8 +45,6 @@
          <div class="form-group">
            <label for="purchasePrice">Price in Ether</label>
            <input type="number" class="form-control" id="purchasePrice" readonly>
-          <label for="tip">+ Optional Tip</label>
-           <input required type="number" class="form-control" id="tip" min="0" max="" step="0.000000000000000001" placeholder="0.001" onchange="App.updateSendEtherForm();">
          </div>
 
          <div class="form-group">
