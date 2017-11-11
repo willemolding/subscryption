@@ -28,15 +28,21 @@
            <input required type="number" min="0" max="" step="0.000000000000000001" class="form-control" id="appPriceInput" placeholder="0.001">
          </div>
 
-         <div class="form-group">
-            <label for="appBillingPeriodSelect">Minimum Subscription</label>
-            <select type="select" class="form-control" id="appBillingPeriodSelect">
-              <option value="0">One Time Payment</option>
-              <option value="86400">1 Day</option>
-              <option value="604800">1 Week</option>
-              <option value="2592000">1 Month</option>
-              <option value="31104000">1 Year</option>
-            </select>
+
+          <label for="billingPeriod">Minimum Subscription</label>
+         <div class="form-group" id="billingPeriod">
+            <div class="col-xs-6">
+              <input required type="number" min="1" max="" step="1" class="form-control" id="appBillingPeriodMultiplierInput" value="1">
+            </div>
+            <div class="col-xs-6">
+              <select type="select" class="form-control" id="appBillingPeriodSelect">
+                <option value="0">One Time Payment</option>
+                <option value="86400">Day</option>
+                <option value="604800">Week</option>
+                <option value="2592000">Month</option>
+                <option value="31104000">Year</option>
+              </select>
+            </div>
          </div>
 
          <div class="form-group">

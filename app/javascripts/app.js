@@ -50,9 +50,27 @@ window.App = {
 		$('#newContractForm').change(App.updateNewContractForm);
 		$('#addEtherForm').change(App.updateSendEtherForm);
 
+		App.updateNewContractForm()
+		App.updateSendEtherForm()
 	},
 
 	renderCreateNewServiceContractForm: function() {
+	},
+
+	validateUrlName: function(urlName) {
+		// checks that a url name is valid and not in use in the dapp already
+		
+		// first check it is valid when appeneded to a url
+
+
+		// then check it isn't already taken
+		ServiceContractFactory.deployed().then(function(instance) {
+			return instance.getDeployedContractByUrlName(urlName);
+		}).then(function(address) {
+
+		}).catch(function(err) {
+			console.log(err);
+		});
 	},
 
 	renderSendEtherForm: function(appUrlName) {
@@ -96,8 +114,11 @@ window.App = {
 		document.getElementById("priceDisplay").innerHTML = Number(document.getElementById("appPriceInput").value);
 		var billingPeriodSelect = document.getElementById("appBillingPeriodSelect");
 		if (billingPeriodSelect.value > 0) {
-			document.getElementById("intervalDisplay").innerHTML = "Per "+billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
+			document.getElementById("intervalDisplay").innerHTML = "Per "+ $("#appBillingPeriodMultiplierInput").val() + " " + billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
+			$("#appBillingPeriodMultiplierInput").prop("disabled", false);
 		} else {
+			$("#appBillingPeriodMultiplierInput").prop("disabled", true);
+			$("#appBillingPeriodMultiplierInput").val(0);
 			document.getElementById("intervalDisplay").innerHTML = "One time payment";
 		}
 
@@ -108,7 +129,7 @@ window.App = {
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
 		var beneficiaryShare = web3.toWei(0.01, 'ether'); // remove this soon
-		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value;
+		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value * $("#appBillingPeriodMultiplierInput").val();
 
 		console.log("deploying new service contract:");
 		console.log(appName);

@@ -83,7 +83,7 @@ contract ServiceContract{
 	// The actual ether is passed on to the owner and beneficiary but a record is stored in the contract
 	// no ether should ever be stored in the contract 
 	function addEther(bytes32 userID) external payable {
-        require(msg.value > price); // don't allow paying less than the minimum billing period
+        require(msg.value >= price); // don't allow paying less than the minimum billing period
 
         accounts[userID].totalPaid = SafeMath.add(accounts[userID].totalPaid, msg.value);
         uint256 paidDuration =  SafeMath.div(SafeMath.mul(msg.value, billingPeriod), price);
