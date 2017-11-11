@@ -128,7 +128,7 @@ window.App = {
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
-		var beneficiaryShare = web3.toWei(0.01, 'ether'); // remove this soon
+		var beneficiaryShare = web3.toWei(0.01, 'ether'); // remove this soon and make it a property of the contract factory
 		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value * $("#appBillingPeriodMultiplierInput").val();
 
 		console.log("deploying new service contract:");
@@ -142,9 +142,11 @@ window.App = {
 				{from: accounts[0]});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
-			console.log(result);
-			var newContractAddress = result.logs[0].args.newContractAddress
-			console.log("New Contract at address: \n"+newContractAddress);
+			let txhash = result.tx;
+			console.log("Contract deployment started with transaction hash:");
+			console.log(txhash);
+			// var newContractAddress = result.logs[0].args.newContractAddress
+			// console.log("New Contract at address: \n"+newContractAddress);
 		}).catch(function(err) {
 			console.error(err);
 		});
@@ -169,10 +171,11 @@ window.App = {
 		}).then(function(serviceContract) {
 			return serviceContract.addEther(userID, {from: accounts[0], value: web3.toWei(totalPayment)});
 		}).then(function(result) {
-			console.log("ether successfully send to account");
+			let txhash = result.tx;
+			console.log("Payment started with transaction hash:");
+			console.log(txhash);
 		}).catch(function(err) {
 			console.error(err);
-
 		});
 	},
 };
