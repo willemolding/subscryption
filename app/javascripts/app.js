@@ -141,6 +141,7 @@ window.App = {
 			console.log("ether successfully send to account");
 		}).catch(function(err) {
 			console.error(err);
+			
 		});
 	},
 };
