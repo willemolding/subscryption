@@ -7,13 +7,18 @@ body {
 
 label {
   display: inline-block;
-  width: 100px;
+  /*width: 100px;*/
 }
 
 input {
   width: 500px;
   padding: 5px;
   font-size: 16px;
+}
+
+.well{
+    min-height:270px !important;
+    text-align: center;
 }
 
 button {
@@ -30,7 +35,7 @@ h1, h2 {
 
 h2 {
   color: #AAA;
-  font-size: 32px;
+  font-size: 22px !important;
 }
 
 h3 {
@@ -49,4 +54,16 @@ h3 {
 
 .hint {
   color: #666;
+}
+
+.deploy-btn {
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+    margin-top:50px;
+}
+.summary-table {
+    margin: 0 auto;
+}
+.summary-table th{
+    padding-right: 20px;
 }

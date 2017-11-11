@@ -1,7 +1,10 @@
 // Import the page's CSS. Webpack will know what to do with it.
 import "../stylesheets/app.css";
+import "../stylesheets/animate.css";
 
+import 'bootstrap'; //bootstap js
 import "bootstrap/dist/css/bootstrap.css";
+
 
 // Import libraries we need.
 import { default as Web3} from 'web3';
@@ -167,6 +170,43 @@ window.addEventListener('load', function() {
 		// fallback - use your fallback strategy (Infura Ethereum provider (using ropsten for now))
 		window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/siZtDG9vlqEzi7Jekeqt "));
 	}
+
+    //### Modal Functions
+    $('.next').click(function () {
+
+        var nextId = $(this).parents('.tab-pane').next().attr("id");
+        $('[href="#'+ nextId +'"'+ ']').tab('show');
+        return false;
+    })
+    $('.previous').click(function () {
+
+        var prevId = $(this).parents('.tab-pane').prev().attr("id");
+        $('[href="#' + prevId + '"' + ']').tab('show');
+        return false;
+    })
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+        //update progress
+        var step = $(e.target).data('step');
+        var percent = (parseInt(step) / 3) * 100;
+
+        $('.progress-bar').css({ width: percent + '%' });
+        $('.progress-bar').text("Step " + step + " of 3");
+
+        //e.relatedTarget // previous tab
+
+    })
+
+    //$('.first').click(function () {
+
+    //    $('#myWizard a:first').tab('show')
+
+    //})
+    $('[data-toggle="popover"]').popover(); 
+
+     //### End Modal Functions
+
 
 	App.start();
 });
