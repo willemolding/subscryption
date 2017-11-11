@@ -107,12 +107,12 @@ window.App = {
 
 	updateSendEtherForm: function() {
 
-		document.getElementById("totalPayment").innerHTML = Number(document.getElementById("purchasePrice").value);
+		document.getElementById("displayDuration").innerHTML = Number(document.getElementById("subscriptionDuration").value);
 	},
 
 	updateNewContractForm: function() {
 		document.getElementById("priceDisplay").innerHTML = Number(document.getElementById("appPriceInput").value);
-		var billingPeriodSelect = document.getElementById("appBillingPeriodSelect");
+		var billingPeriodSelect = document.getElementById("billingPeriodSelect");
 		if (billingPeriodSelect.value > 0) {
 			document.getElementById("intervalDisplay").innerHTML = "Per "+ $("#appBillingPeriodMultiplierInput").val() + " " + billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
 			$("#appBillingPeriodMultiplierInput").prop("disabled", false);
