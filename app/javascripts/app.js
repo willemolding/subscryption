@@ -134,13 +134,12 @@ window.App = {
 		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value * $("#appBillingPeriodMultiplierInput").val();
 
 		console.log("deploying new service contract:");
-		console.log(appName);
-		console.log(appUrlName);
-		console.log(priceInWei);
-		console.log(beneficiaryShare);
+		console.log("name" + appName);
+		console.log("urlName" + appUrlName);
+		console.log("price in wei" + priceInWei);
 
 		ServiceContractFactory.deployed().then(function(instance) {
-			return instance.deployNewContract(appName, appUrlName, priceInWei, billingPeriodInSeconds, beneficiaryShare, 
+			return instance.deployNewContract(appName, appUrlName, priceInWei, billingPeriodInSeconds, 
 				{from: accounts[0]});
 		}).then(function(result) {
 			//verify that the contract was deployed successfully
