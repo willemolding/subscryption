@@ -109,8 +109,6 @@ window.App = {
 	},
 
 	updateSendEtherForm: function() {
-
-		document.getElementById("displayDuration").innerHTML = Number(document.getElementById("subscriptionDuration").value);
 	},
 
 	updateNewContractForm: function() {

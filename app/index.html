@@ -38,7 +38,6 @@
                       <div class="tab-content">
                           <div class="tab-pane fade in active" id="step1">
                               <div class="well">
-                                  <form class="newContractForm">
                                       <div class="form-group">
                                           <label for="appNameInput">App name</label>
                                           <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
@@ -47,7 +46,6 @@
                                           <label for="appUrlNameInput">App Url Extension</label>
                                           <input pattern=".{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
                                       </div>
-                                  </form>
                               </div>
                               <a class="btn btn-default next" href="#">Next Step</a>
                           </div>
@@ -98,7 +96,7 @@
                                           <td id="priceInEthSummary">TODO</td>
                                       </tr>
                                   </table>
-                                  <button type="submit" class="btn btn-success deploy-btn">Deploy Contract</button>
+                                  <button type="submit" class="btn btn-success deploy-btn" onclick="App.deployNewServiceContract()">Deploy Contract</button>
                               </div>
                               <a class="btn btn-default previous" href="#">Previous Step</a>
                           </div>
