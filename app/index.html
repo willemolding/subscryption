@@ -44,7 +44,7 @@
                                       </div>
                                       <div class="form-group"  data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
                                           <label for="appUrlNameInput">App Url Extension</label>
-                                          <input pattern=".{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
+                                          <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
                                       </div>
                               </div>
                               <a class="btn btn-default next" href="#">Next Step</a>
@@ -134,7 +134,7 @@
 
                                       <div class="form-group">
                                           <label for="userID">User ID</label>
-                                          <input pattern=".{6,6}" required class="form-control" maxlength=6 id="userID" placeholder="123ABC">
+                                          <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="userID" placeholder="123ABC">
                                       </div>
 
                                        <label for="subscriptionDurationForm">Duration</label>

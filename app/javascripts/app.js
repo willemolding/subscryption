@@ -109,6 +109,7 @@ window.App = {
 	},
 
 	updateSendEtherForm: function() {
+		
 	},
 
 	updateNewContractForm: function() {
