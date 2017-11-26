@@ -38,40 +38,44 @@
                       <div class="tab-content">
                           <div class="tab-pane fade in active" id="step1">
                               <div class="well">
+                                  <form id="step1Form">
                                       <div class="form-group">
                                           <label for="appNameInput">App name</label>
                                           <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
                                       </div>
-                                      <div class="form-group"  data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
+                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
                                           <label for="appUrlNameInput">App Url Extension</label>
                                           <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
                                       </div>
+                                  </form>
                               </div>
                               <a class="btn btn-default next" href="#">Next Step</a>
                           </div>
                           <div class="tab-pane fade" id="step2">
                               <div class="well">
-                                  <div class="form-group">
-                                      <label for="appPriceInput">Price in eth</label>
-                                      <input required type="number" min="0" max="" step="0.000000000000000001" class="form-control" id="appPriceInput" placeholder="0.001">
-                                  </div>
+                                  <form id="step2Form">
+                                      <div class="form-group">
+                                          <label for="appPriceInput">Price in eth</label>
+                                          <input required type="number" min="0" max="" step="0.000000000000000001" class="form-control" id="appPriceInput" placeholder="0.001">
+                                      </div>
 
-                                  <label for="billingPeriod">Minimum Subscription</label>
-                                   <div class="form-inline" id="billingPeriod">
-                                        <input required type="number" min="1" max="" step="1" class="form-control" id="appBillingPeriodMultiplierInput" value="1">
-                                        <select type="select" class="form-control" id="billingPeriodSelect">
-                                          <option value="0">One Time Payment</option>
-                                          <option value="86400">Day</option>
-                                          <option value="604800">Week</option>
-                                          <option value="2592000">Month</option>
-                                          <option value="31104000">Year</option>
-                                        </select>
-                                   </div>
+                                      <label for="billingPeriod">Minimum Subscription</label>
+                                      <div class="form-inline" id="billingPeriod">
+                                          <input required type="number" min="1" max="" step="1" class="form-control" id="appBillingPeriodMultiplierInput" value="1">
+                                          <select type="select" class="form-control" id="billingPeriodSelect">
+                                              <option value="0">One Time Payment</option>
+                                              <option value="86400">Day</option>
+                                              <option value="604800">Week</option>
+                                              <option value="2592000">Month</option>
+                                              <option value="31104000">Year</option>
+                                          </select>
+                                      </div>
 
-                                  <div class="form-group">
-                                      <h2>Subscription will cost: <span id="priceDisplay" style="font-weight: bold;">0</span> Ether <span id="intervalDisplay" style="font-weight: bold;"></span></h2>
-                                  </div>
-                              </div>
+                                      <div class="form-group">
+                                          <h2>Subscription will cost: <span id="priceDisplay" style="font-weight: bold;">0</span> Ether <span id="intervalDisplay" style="font-weight: bold;"></span></h2>
+                                      </div>
+                                   </form>
+                                </div>
                               <a class="btn btn-default previous" href="#">Previous Step</a>
                               <a class="btn btn-default next" href="#">Next Step</a>
                           </div>

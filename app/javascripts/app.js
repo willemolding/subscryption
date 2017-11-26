@@ -195,13 +195,18 @@ window.addEventListener('load', function() {
 
     //### Modal Functions
     $('.next').click(function () {
-
-        var nextId = $(this).parents('.tab-pane').next().attr("id");
-        $('[href="#'+ nextId +'"'+ ']').tab('show');
-        return false;
+        var isValid = $(this).siblings('.well').children('form')[0].checkValidity();
+        if (isValid) {
+            var nextId = $(this).parents('.tab-pane').next().attr("id");
+            $('[href="#' + nextId + '"' + ']').tab('show');
+            return false;
+        }
+        else {
+            //TODO dispay error
+        }
+        
     })
     $('.previous').click(function () {
-
         var prevId = $(this).parents('.tab-pane').prev().attr("id");
         $('[href="#' + prevId + '"' + ']').tab('show');
         return false;

@@ -1,3 +1,7 @@
 build
 node_modules
 yarn-error.log
+/.vs/subscryption/v15
+/.vs/ProjectSettings.json
+/.vs/VSWorkspaceState.json
+/.vs/config/applicationhost.config
