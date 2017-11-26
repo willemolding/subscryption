@@ -49,9 +49,10 @@ window.App = {
 		var hash = window.location.hash.substring(1);
 		console.log(hash);
 		App.renderSendEtherForm(hash);
-
-		$('#newContractForm').change(App.updateNewContractForm);
+        $('#step1Form').change(App.updateNewContractForm);
+        $('#step2Form').change(App.updateNewContractForm);
 		$('#addEtherForm').change(App.updateSendEtherForm);
+        $("#appBillingPeriodMultiplierInput").hide();
 
 		App.updateNewContractForm()
 		App.updateSendEtherForm()
@@ -60,12 +61,15 @@ window.App = {
 	renderCreateNewServiceContractForm: function() {
 	},
 
-	validateUrlName: function(urlName) {
+    validateUrlName: function (urlName) {
+
+        return true;
+
+        //TODO
+
 		// checks that a url name is valid and not in use in the dapp already
-		
 		// first check it is valid when appeneded to a url
-
-
+        
 		// then check it isn't already taken
 		ServiceContractFactory.deployed().then(function(instance) {
 			return instance.getDeployedContractByUrlName(urlName);
@@ -114,19 +118,37 @@ window.App = {
 
 	updateNewContractForm: function() {
 		document.getElementById("priceDisplay").innerHTML = Number(document.getElementById("appPriceInput").value);
-		var billingPeriodSelect = document.getElementById("billingPeriodSelect");
-		if (billingPeriodSelect.value > 0) {
-			document.getElementById("intervalDisplay").innerHTML = "Per "+ $("#appBillingPeriodMultiplierInput").val() + " " + billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
-			$("#appBillingPeriodMultiplierInput").prop("disabled", false);
-		} else {
-			$("#appBillingPeriodMultiplierInput").prop("disabled", true);
-			$("#appBillingPeriodMultiplierInput").val(0);
-			document.getElementById("intervalDisplay").innerHTML = "One time payment";
-		}
+        var billingPeriodSelect = document.getElementById("billingPeriodSelect");
+        var multiplier = $("#appBillingPeriodMultiplierInput").val();
+        var billingPeriodText = billingPeriodSelect.options[billingPeriodSelect.selectedIndex].text;
 
+        if (multiplier != '1') {
+            billingPeriodText = billingPeriodText + 's';
+        }
+        else {
+            multiplier = '';
+        }
+
+		if (billingPeriodSelect.value > 0) {
+            document.getElementById("intervalDisplay").innerHTML = "Per " + multiplier + " " + billingPeriodText;
+
+            $("#appBillingPeriodMultiplierInput").prop("disabled", false);
+            $("#appBillingPeriodMultiplierInput").show(200);
+
+		} else {
+            $("#appBillingPeriodMultiplierInput").prop("disabled", true);
+            $("#appBillingPeriodMultiplierInput").hide(200);
+
+			//$("#appBillingPeriodMultiplierInput").val(0);
+			document.getElementById("intervalDisplay").innerHTML = "";
+        }
 	},
 
-	deployNewServiceContract: function() {
+    deployNewServiceContract: function () {
+        //$("#newContractDialog").addClass("animated flipOutY");
+        //$("#newContractDialog").addClass("hidden");
+        //$("#confirmationDialog").addClass("animated flipInY");
+
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
@@ -180,7 +202,8 @@ window.App = {
 	},
 };
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
+    var validURL = false;
 	// Checking if Web3 has been injected by the browser (Mist/MetaMask)
 	if (typeof web3 !== 'undefined') {
 		console.warn("Using web3 detected from external source. ");
@@ -194,22 +217,65 @@ window.addEventListener('load', function() {
 
     //### Modal Functions
     $('.next').click(function () {
-        var isValid = $(this).siblings('.well').children('form')[0].checkValidity();
-        if (isValid) {
-            var nextId = $(this).parents('.tab-pane').next().attr("id");
+        var nextId = $(this).parents('.tab-pane').next().attr("id");
+        var isValid = $(this).parents('form')[0].checkValidity();
+
+        if (isValid && validURL) {
+
+            if (nextId == 'step3') { //if summary page
+                $("#appNameSummary").html($("#appNameInput").val());
+                $("#appURLNameSummary").html($("#appUrlNameInput").val());
+                var billPeriodMultiplier = $('#appBillingPeriodMultiplierInput').val();
+                var billingType = '';
+                var billingPeriodSelect = $('#billingPeriodSelect').val();
+                switch (billingPeriodSelect) {
+                    case '0':
+                        billingType = "One Time Payment";
+                        break;
+                    case '86400':
+                        billingType = billPeriodMultiplier + " Day Subscription";
+                        break;
+                    case '604800':
+                        billingType = billPeriodMultiplier + " Week Subscription";
+                        break;
+                    case '2592000':
+                        billingType = billPeriodMultiplier + " Month Subscription";
+                        break;
+                    case '31104000':
+                        billingType = billPeriodMultiplier + " Year Subscription";
+                        break;
+                }
+                $("#billingTypeSummary").html(billingType);
+                $("#priceInEthSummary").html($('#appPriceInput').val());
+            }
             $('[href="#' + nextId + '"' + ']').tab('show');
             return false;
         }
         else {
-            //TODO dispay error
         }
-        
-    })
+
+    });
+
     $('.previous').click(function () {
         var prevId = $(this).parents('.tab-pane').prev().attr("id");
         $('[href="#' + prevId + '"' + ']').tab('show');
         return false;
-    })
+    });
+
+    $('#appUrlNameInput').change(function () {
+        $('#urlError').show();
+        $('#urlError').html("Checking availability of URL name");
+
+        validURL = App.validateUrlName($(this).val());
+        if (!validURL) {
+            $('#urlError').show();
+            $('#urlError').html("Error: This URL is already being used by another App");
+            $('#urlError').addClass("warning");
+        }
+        else {
+            $('#urlError').hide();
+        }
+    });
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
@@ -222,14 +288,11 @@ window.addEventListener('load', function() {
 
         //e.relatedTarget // previous tab
 
-    })
-
-    //$('.first').click(function () {
-
-    //    $('#myWizard a:first').tab('show')
-
-    //})
+    });
     $('[data-toggle="popover"]').popover(); 
+
+
+
 
      //### End Modal Functions
 

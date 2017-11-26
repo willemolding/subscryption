@@ -67,3 +67,15 @@ h3 {
 .summary-table th{
     padding-right: 20px;
 }
+.modal-nav-btn{
+    margin-top: 50px;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
