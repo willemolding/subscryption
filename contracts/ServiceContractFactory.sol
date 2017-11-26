@@ -1,10 +1,9 @@
 pragma solidity ^0.4.11;
 
 import "./ServiceContract.sol";
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract ServiceContractFactory is Ownable {
+contract ServiceContractFactory {
 
 	ServiceContract[] private deployedContracts;
 	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
@@ -13,9 +12,7 @@ contract ServiceContractFactory is Ownable {
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 
 	function ServiceContractFactory() {
-		owner = msg.sender;
 	}
-
 
 	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod) external returns (ServiceContract) {
 		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
