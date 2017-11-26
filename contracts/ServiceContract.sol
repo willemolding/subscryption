@@ -93,8 +93,6 @@ contract ServiceContract{
 	        }
         } 
 
-        uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
-
         // transfer everything in the contract to the owner. makes sure no ether can get stuck
         owner.transfer(this.balance);
 
