@@ -13,3 +13,7 @@ then:
 
 To deploy use:
 $truffle migrate --network rinkeby --reset
+
+
+Use RPC provider
+https://rinkeby.infura.io/siZtDG9vlqEzi7Jekeqt 
