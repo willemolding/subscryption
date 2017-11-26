@@ -14,11 +14,9 @@ contract ServiceContract{
 
 	address public owner; // address of the owner of the service that is being paid for. Also the owner of the contract
 	address public creator; // who created the contract. They do not have any special privilages
-	address public beneficiary; // address of party that gets a fraction of proceeds
 
 	uint256 public price; // how much the service costs in wei per billing period
 	uint256 public billingPeriod; // Duration in seconds that is paid for by price. If 0 then only one-off payments are required. This is also the minimum allowable payment
-	uint256 public beneficiaryShare; // how much goes to the beneficiary in wei per ether
 
 	// a mapping of userIDs to their account data
 	mapping(bytes32 => AccountData) private accounts;
@@ -41,23 +39,20 @@ contract ServiceContract{
 	}
 
 
-	function ServiceContract(bytes32 serviceName_, address owner_, address beneficiary_, uint256 price_, uint256 billingPeriod_, uint256 beneficiaryShare_) payable {
+	function ServiceContract(bytes32 serviceName_, address owner_, uint256 price_, uint256 billingPeriod_) payable {
 		require(msg.value == 0); // do not allow payments to this contract ever
 
 		// sets the owner to the creator of the contract. It is not necessarily the creator
 		serviceName = serviceName_;
 		owner = owner_;
-		beneficiary = beneficiary_;
 		price = price_;
         billingPeriod = billingPeriod_;
-		beneficiaryShare = beneficiaryShare_;
 		creator = msg.sender;
 
 		// check that the owner and beneficiary are both able to receive funds
 		// this costs gas but the contract is useless otherwise
 		// these will revert if unsuccessful erasing the created contract
 		owner.transfer(0);
-		beneficiary.transfer(0);
 	}
 
 	// fallback does not have payable modifier so direct payments are disallowed
@@ -100,16 +95,7 @@ contract ServiceContract{
 
         uint256 beneficiaryCut = SafeMath.div(SafeMath.mul(msg.value, beneficiaryShare), 1 ether);
 
-        //transfer the cut to the beneficiary
-        // If this call fails then everything will be rolled back
-        // no further code execution will occur
-        // The users funds will be recalled (minus gas)
-        beneficiary.transfer(beneficiaryCut);
-
-        // transfer everything remaining to the owner.
-        // If this call fails then the beneficiary won't receive funds and the user won't be authenticated
-        // the users funds will be recalled though (minus gas)
-        // Another call can be used to recover these funds although the address cannot be changed
+        // transfer everything in the contract to the owner. makes sure no ether can get stuck
         owner.transfer(this.balance);
 
         //trigger event
