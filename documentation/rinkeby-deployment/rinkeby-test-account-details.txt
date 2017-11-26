@@ -1,0 +1,15 @@
+public key: "0x29f2b38ada9360d87ed9ad0283742167c8651073"
+keystore file: UTC--2017-11-26T05-17-10.023452345Z--29f2b38ada9360d87ed9ad0283742167c8651073
+keystore password: "hackthis"
+
+
+need to be running a full rinkeby node locally first:
+$geth --rinkeby --rpc --rpcapi db,eth,net,web3,personal
+
+and also need to unlock the account first
+$geth attach ipc:/home/willem/.ethereum/rinkeby/geth.ipc
+then:
+>personal.unlockAccount(eth.coinbase)
+
+To deploy use:
+$truffle migrate --network rinkeby --reset

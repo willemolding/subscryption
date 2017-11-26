@@ -51,7 +51,7 @@ router.get('/contract/:urlName', function(req, res) {
 			res.send(response);
 		}).catch(function(err) {
 			console.error(err);
-			res.send({"error":"Could not locate contract with this urlName"}); //respond with a http 500 error response (internal server error)
+			res.send({"error":"Could not locate contract with this urlName"});
 		});
 
 	}).catch(function(err){
@@ -89,7 +89,7 @@ router.get('/user/:urlName/:userId', function(req, res) {
 			res.send(response);
 		}).catch(function(err){
 			console.error(err)
-			res.send({"error":"Could not locate contract with this urlName"}); //respond with a http 500 error response (internal server error)
+			res.send({"error":"Could not locate contract with this urlName"});
 		});
 
 	}).catch(function(err) {
