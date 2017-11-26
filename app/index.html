@@ -21,8 +21,8 @@
                   <div class="modal-body">
 
                       <div class="progress">
-                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 20%;">
-                              Step 1 of 5
+                          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 33%;">
+                              Step 1 of 3
                           </div>
                       </div>
 
@@ -39,17 +39,18 @@
                           <div class="tab-pane fade in active" id="step1">
                               <div class="well">
                                   <form id="step1Form">
-                                      <div class="form-group">
+                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Name between 3 and 32 characters">
                                           <label for="appNameInput">App name</label>
                                           <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
                                       </div>
                                       <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
                                           <label for="appUrlNameInput">App Url Extension</label>
                                           <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
+                                          <span id="urlError"></span>
                                       </div>
+                                      <button class="btn btn-default next modal-nav-btn" href="#">Next Step</button>
                                   </form>
                               </div>
-                              <a class="btn btn-default next" href="#">Next Step</a>
                           </div>
                           <div class="tab-pane fade" id="step2">
                               <div class="well">
@@ -61,7 +62,7 @@
 
                                       <label for="billingPeriod">Minimum Subscription</label>
                                       <div class="form-inline" id="billingPeriod">
-                                          <input required type="number" min="1" max="" step="1" class="form-control" id="appBillingPeriodMultiplierInput" value="1">
+                                          <input required type="number" min="1" max="" step="1" class="form-control" id="appBillingPeriodMultiplierInput" value="1" style="display: none;">
                                           <select type="select" class="form-control" id="billingPeriodSelect">
                                               <option value="0">One Time Payment</option>
                                               <option value="86400">Day</option>
@@ -74,10 +75,11 @@
                                       <div class="form-group">
                                           <h2>Subscription will cost: <span id="priceDisplay" style="font-weight: bold;">0</span> Ether <span id="intervalDisplay" style="font-weight: bold;"></span></h2>
                                       </div>
+                                      <button class="btn btn-default previous modal-nav-btn" href="#">Previous Step</button>
+                                      <button class="btn btn-default next modal-nav-btn" href="#">Next Step</button>
                                    </form>
                                 </div>
-                              <a class="btn btn-default previous" href="#">Previous Step</a>
-                              <a class="btn btn-default next" href="#">Next Step</a>
+                              
                           </div>
                           <div class="tab-pane fade" id="step3">
                               <div class="well"> 
@@ -85,24 +87,24 @@
                                   <table class="summary-table">
                                       <tr>
                                           <th>App Name</th>
-                                          <td id="appNameSummary">TODO</td>
+                                          <td id="appNameSummary"></td>
                                       </tr>
                                       <tr>
                                           <th>App URL name</th>
-                                          <td id="appURLNameSummary">TODO</td>
+                                          <td id="appURLNameSummary"></td>
                                       </tr>
                                       <tr>
                                           <th>Billing Type</th>
-                                          <td id='billingTypeSummary'>TODO</td>
+                                          <td id='billingTypeSummary'></td>
                                       </tr>
                                       <tr>
                                           <th>Price in Eth</th>
-                                          <td id="priceInEthSummary">TODO</td>
+                                          <td id="priceInEthSummary"></td>
                                       </tr>
                                   </table>
                                   <button type="submit" class="btn btn-success deploy-btn" onclick="App.deployNewServiceContract()">Deploy Contract</button>
+                                  <button class="btn btn-default previous modal-nav-btn" href="#">Previous Step</button>
                               </div>
-                              <a class="btn btn-default previous" href="#">Previous Step</a>
                           </div>
                       </div>
                   </div>
