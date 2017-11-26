@@ -130,7 +130,6 @@ window.App = {
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
-		var beneficiaryShare = web3.toWei(0.01, 'ether'); // remove this soon and make it a property of the contract factory
 		var billingPeriodInSeconds = document.getElementById("billingPeriodSelect").value * $("#appBillingPeriodMultiplierInput").val();
 
 		console.log("deploying new service contract:");
