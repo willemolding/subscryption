@@ -11,9 +11,6 @@ contract ServiceContractFactory {
 
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
 
-	function ServiceContractFactory() {
-	}
-
 	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod) external returns (ServiceContract) {
 		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
 

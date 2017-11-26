@@ -1,29 +1,26 @@
 pragma solidity ^0.4.11;
 
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
+
 library SafeMath {
-  function mul(uint256 a, uint256 b) internal constant returns (uint256) {
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
     uint256 c = a * b;
     assert(a == 0 || c / a == b);
     return c;
   }
 
-  function div(uint256 a, uint256 b) internal constant returns (uint256) {
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
     // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
-  function sub(uint256 a, uint256 b) internal constant returns (uint256) {
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b <= a);
     return a - b;
   }
 
-  function add(uint256 a, uint256 b) internal constant returns (uint256) {
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
     uint256 c = a + b;
     assert(c >= a);
     return c;
@@ -67,7 +64,7 @@ contract ServiceContract{
 	}
 
 
-	function ServiceContract(bytes32 serviceName_, address owner_, uint256 price_, uint256 billingPeriod_) payable {
+    function ServiceContract(bytes32 serviceName_, address owner_, uint256 price_, uint256 billingPeriod_) payable public {
 		require(msg.value == 0); // do not allow payments to this contract ever
 
 		// sets the owner to the creator of the contract. It is not necessarily the creator
@@ -78,7 +75,7 @@ contract ServiceContract{
 		creator = msg.sender;
 
 		// check that the owner and beneficiary are both able to receive funds
-		// this costs gas but the contract is useless otherwise
+		// this costs gas but t he contract is useless otherwise
 		// these will revert if unsuccessful erasing the created contract
 		owner.transfer(0);
 	}
@@ -138,6 +135,47 @@ contract ServiceContract{
 	function changeBillingPeriod(uint256 newBillingPeriod) external onlyOwner {
 		BillingPeriodChanged(billingPeriod, newBillingPeriod);
 		billingPeriod = newBillingPeriod;
+	}
+
+}
+
+
+
+
+contract ServiceContractFactory {
+
+	ServiceContract[] private deployedContracts;
+	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
+
+
+	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
+
+	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod) external returns (ServiceContract) {
+		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
+
+		ServiceContract newContract = new ServiceContract(
+			serviceName, 
+			msg.sender, 
+			price, 
+			billingPeriod);
+
+		deployedContracts.push(newContract); 
+		contractIndex[serviceUrlName] = newContract;
+
+		NewContractDeployed(newContract, serviceName);
+		return newContract;
+	}
+
+	function numberOfDeployedContracts() public constant returns (uint) {
+		return deployedContracts.length;
+	}
+
+	function getDeployedContractAtIndex(uint256 index) public constant returns (ServiceContract) {
+		return deployedContracts[index];
+	}
+
+	function getDeployedContractByUrlName(bytes32 serviceUrlName) public constant returns (ServiceContract) {
+		return contractIndex[serviceUrlName];
 	}
 
 }
