@@ -17,7 +17,7 @@ contract ServiceContractFactory is Ownable {
 
 	function ServiceContractFactory(address beneficiary_, uint256 beneficiaryShare_) {
 		beneficiary = beneficiary_;
-		beneficiaryShare = beneficiaryShare_;
+		beneficiaryShare = 0;
 		owner = msg.sender;
 	}
 
