@@ -190,7 +190,7 @@ window.addEventListener('load', function() {
 	} else {
 		console.warn("No web3 detected. Only read-only calls permitted");
 		// fallback - use your fallback strategy (Infura Ethereum provider (using ropsten for now))
-		window.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/siZtDG9vlqEzi7Jekeqt "));
+		window.web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/siZtDG9vlqEzi7Jekeqt"));
 	}
 
     //### Modal Functions
