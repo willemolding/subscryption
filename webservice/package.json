@@ -7,12 +7,13 @@
     "node": "8.9.1"
   },
   "dependencies": {
-    "express": "4.15.2",
-    "truffle": "4.0.1",
-    "path": "0.12.7"
+    "express": "^4.15.2",
+    "path": "^0.12.7",
+    "truffle-contract": "^3.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cp ../build/contracts/ServiceContractFactory.json ./contract_artifacts/ServiceContractFactory.json && cp ../build/contracts/ServiceContract.json ./contract_artifacts/ServiceContract.json"
   },
   "author": "",
   "license": "ISC"

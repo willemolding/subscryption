@@ -1,0 +1,5 @@
+Can query the state of contracts at:
+https://subscryption.herokuapp.com/api/v1/contract/<contractUrlName>
+
+Can query users paid status at:
+https://subscryption.herokuapp.com/api/v1/user/<contractUrlName>/<userId>

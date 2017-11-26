@@ -3,13 +3,13 @@ let Web3            = require('web3'),
     contract        = require("truffle-contract"),
     path            = require('path'),
     express			= require('express'),
-    service_contract_factory_artifacts  = require(path.join(__dirname, '../build/contracts/ServiceContractFactory.json'));
-    service_contract_artifacts = require(path.join(__dirname, '../build/contracts/ServiceContract.json'));
+    service_contract_factory_artifacts  = require(path.join(__dirname, './contract_artifacts/ServiceContractFactory.json'));
+    service_contract_artifacts = require(path.join(__dirname, './contract_artifacts/ServiceContract.json'));
 
 
 
 // Setup RPC connection   
-let provider = new Web3.providers.HttpProvider("http://localhost:8545");
+let provider = new Web3.providers.HttpProvider(process.env.RPC_PROVIDER);
 let web3 = new Web3(provider);
 
 // Read JSON and attach RPC connection (Provider)
@@ -35,7 +35,7 @@ router.get('/contract/:urlName', function(req, res) {
 	console.log(urlName)
 
 	// can maybe do this better than using nested promises. Need to check
-	ServiceContractFactory.deployed().then(function(factoryInstance) {
+	ServiceContractFactory.at(process.env.CONTRACT_FACTORY_ADDRESS).then(function(factoryInstance) {
     	return factoryInstance.getDeployedContractByUrlName(web3.toHex(urlName));
     }).then(function(address) {
 
@@ -44,10 +44,13 @@ router.get('/contract/:urlName', function(req, res) {
 			serviceContractInstance = contractInstance;
 			return serviceContractInstance.serviceName();
 		}).then(function (serviceName) {
-			response["name"] = serviceName;
+			response["name"] = web3.toAscii(serviceName).replace(/\0/g, '');
 			return serviceContractInstance.price();
 		}).then(function(price) {
-			response["price"] = price;
+			response["price_wei"] = price;
+			return serviceContractInstance.billingPeriod();
+		}).then(function(billingPeriod) {
+			response["minimum_billing_period_seconds"] = billingPeriod;
 			res.send(response);
 		}).catch(function(err) {
 			console.error(err);
@@ -72,7 +75,7 @@ router.get('/user/:urlName/:userId', function(req, res) {
 	let response = {};
 	let serviceContractInstance;
 
-	ServiceContractFactory.deployed().then(function(factoryInstance) {
+	ServiceContractFactory.at(process.env.CONTRACT_FACTORY_ADDRESS).then(function(factoryInstance) {
     	return factoryInstance.getDeployedContractByUrlName(web3.toHex(urlName));
     }).then(function(address) {
 
@@ -85,7 +88,7 @@ router.get('/user/:urlName/:userId', function(req, res) {
 			response["enabled"] = paidUntilDuration >= Math.floor(new Date() / 1000);
 			return serviceContractInstance.getTotalPaid(userId);
 		}).then(function(totalPaid) {
-			response["total_paid"] = totalPaid;
+			response["total_paid_wei"] = totalPaid;
 			res.send(response);
 		}).catch(function(err){
 			console.error(err)
@@ -101,6 +104,6 @@ router.get('/user/:urlName/:userId', function(req, res) {
 
 app.use('/api/v1/', router);
 
-port = 3000;
+port = process.env.PORT;
 app.listen(port);
 console.log("listening on port: "+port);

@@ -1,0 +1,581 @@
+{
+  "contract_name": "ServiceContractFactory",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "numberOfDeployedContracts",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "getDeployedContractAtIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "serviceName",
+          "type": "bytes32"
+        },
+        {
+          "name": "serviceUrlName",
+          "type": "bytes32"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "name": "billingPeriod",
+          "type": "uint256"
+        }
+      ],
+      "name": "deployNewContract",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "serviceUrlName",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getDeployedContractByUrlName",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "newContractAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newContractServiceName",
+          "type": "bytes32"
+        }
+      ],
+      "name": "NewContractDeployed",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b5b6109fd8061001f6000396000f300606060405263ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166322f84767811461005e5780638497989314610083578063a1a952dd146100b5578063d6f17f98146100f0575b600080fd5b341561006957600080fd5b610071610122565b60405190815260200160405180910390f35b341561008e57600080fd5b610099600435610129565b604051600160a060020a03909116815260200160405180910390f35b34156100c057600080fd5b610099600435602435604435606435610161565b604051600160a060020a03909116815260200160405180910390f35b34156100fb57600080fd5b61009960043561027c565b604051600160a060020a03909116815260200160405180910390f35b6000545b90565b6000808281548110151561013957fe5b906000526020600020900160005b9054906101000a9004600160a060020a031690505b919050565b6000838152600160205260408120548190600160a060020a03161561018557600080fd5b8533858561019161029a565b938452600160a060020a039092166020840152604080840191909152606083019190915260809091019051809103906000f08015156101cf57600080fd5b9050600080548060010182816101e591906102aa565b916000526020600020900160005b8154600160a060020a038086166101009390930a8381029102199091161790915560008781526001602052604090819020805473ffffffffffffffffffffffffffffffffffffffff1916831790558892507f0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709905160405180910390a38091505b50949350505050565b600081815260016020526040902054600160a060020a03165b919050565b6040516106dc806102f683390190565b8154818355818115116102ce576000838152602090206102ce9181019083016102d4565b5b505050565b61012691905b808211156102ee57600081556001016102da565b5090565b90560060606040526040516080806106dc833981016040528080519190602001805191906020018051919060200180519150505b341561003b57600080fd5b600084815560018054600160a060020a03808716600160a060020a03199283161792839055600386905560048590556002805433831693169290921790915516906108fc90604051600060405180830381858888f1935050505015156100a057600080fd5b5b505050505b610627806100b56000396000f300606060405236156100b75763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166302d05d3f81146100c65780630610e037146100f5578063204d7eea1461011f57806341e67ba91461012c5780636d786740146101545780638da5cb5b146101795780639fdc7bc4146101a8578063a035b1fe146101cd578063a2b40d19146101f2578063e792f6fa1461020a578063ea5dcad714610222578063f2fde38b1461024a575b34156100c257600080fd5b5b5b005b34156100d157600080fd5b6100d961026b565b604051600160a060020a03909116815260200160405180910390f35b341561010057600080fd5b61010b60043561027a565b604051901515815260200160405180910390f35b6100c2600435610296565b005b341561013757600080fd5b6101426004356103ed565b60405190815260200160405180910390f35b341561015f57600080fd5b610142610402565b60405190815260200160405180910390f35b341561018457600080fd5b6100d9610408565b604051600160a060020a03909116815260200160405180910390f35b34156101b357600080fd5b610142610417565b60405190815260200160405180910390f35b34156101d857600080fd5b61014261041d565b60405190815260200160405180910390f35b34156101fd57600080fd5b6100c2600435610423565b005b341561021557600080fd5b6100c2600435610484565b005b341561022d57600080fd5b6101426004356104e5565b60405190815260200160405180910390f35b341561025557600080fd5b6100c2600160a060020a03600435166104fd565b005b600254600160a060020a031681565b600081815260056020526040902060010154429010155b919050565b6003546000903410156102a857600080fd5b6000828152600560205260409020546102c19034610596565b6000838152600560205260409020556004546102ea906102e29034906105b0565b6003546105df565b905060045460001415610313576000828152600560205260409020600019600190910155610371565b61031c8261027a565b156103545760008281526005602052604090206001015461033d9082610596565b600083815260056020526040902060010155610371565b61035e4282610596565b6000838152600560205260409020600101555b5b600154600160a060020a039081169030163180156108fc0290604051600060405180830381858888f1935050505015156103ab57600080fd5b33600160a060020a03167f6ef95f06320e7a25a04a175ca677b7052bdd97131872c2192525a629f51be7703460405190815260200160405180910390a25b5050565b6000818152600560205260409020545b919050565b60045481565b600154600160a060020a031681565b60005481565b60035481565b60015433600160a060020a0390811691161461043e57600080fd5b7f8aa4fa52648a6d15edce8a179c792c86f3719d0cc3c572cf90f91948f0f2cb686003548260405191825260208201526040908101905180910390a160038190555b5b50565b60015433600160a060020a0390811691161461049f57600080fd5b7ffad75d7eaaff0ceb53305d7c6d8478c80bed7ea0b43c1c301a72c28a9ccfe3f26004548260405191825260208201526040908101905180910390a160048190555b5b50565b6000818152600560205260409020600101545b919050565b60015433600160a060020a0390811691161461051857600080fd5b600160a060020a038116151561052d57600080fd5b600154600160a060020a0380831691167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a36001805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a0383161790555b5b50565b6000828201838110156105a557fe5b8091505b5092915050565b60008282028315806105cc57508284828115156105c957fe5b04145b15156105a557fe5b8091505b5092915050565b60008082848115156105ed57fe5b0490508091505b50929150505600a165627a7a7230582025080bf528a52ed46f63a983a70115fbd10b5a6e43731c99cdbc6c36d218cb8e0029a165627a7a7230582005489326f79f2d44b84e048c0b3b7b2baf777ad68b3437135be636f336730c210029",
+  "networks": {
+    "4": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x768099735d1c322a05a5b9d7b76d99682a1833d3f7055e5ede25e0f2eeaa8c6d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "oldBeneficiary",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "newBeneficiary",
+              "type": "address"
+            }
+          ],
+          "name": "BeneficiaryChanged",
+          "type": "event"
+        },
+        "0xb1af9643f04636cfadfa6a00b5a1e78549c3b466a32658c7a878156cbf3eac40": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "oldShare",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "newShare",
+              "type": "uint256"
+            }
+          ],
+          "name": "BeneficiaryShareChanged",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xb5da167477bf1d532a9a2b510de0769f8c4f4b7f",
+      "updated_at": 1511674231848
+    },
+    "1508926826195": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xe55c8a08b464176e1372b88f43e978a07445bc1d",
+      "updated_at": 1508928271091
+    },
+    "1509258213983": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xbfb0987eb0c09fe05681afe0d69a4c01a16f4f7a",
+      "updated_at": 1509258528990
+    },
+    "1509356257641": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x5e096b477bfce1ba3ac18e0c90a8a625988f852b",
+      "updated_at": 1509356361531
+    },
+    "1509408830777": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xc79000ad44ced5e41716e360dc331b0fd0e7bc4b",
+      "updated_at": 1509408909799
+    },
+    "1509428397925": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xfe8b5d8786305e455aa8216509ad056917d46f62",
+      "updated_at": 1509428539442
+    },
+    "1509578702432": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x6783797ec8b8fa21140e3e4239d394783a334cd8",
+      "updated_at": 1509579400972
+    },
+    "1510353915211": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x768099735d1c322a05a5b9d7b76d99682a1833d3f7055e5ede25e0f2eeaa8c6d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "oldBeneficiary",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "newBeneficiary",
+              "type": "address"
+            }
+          ],
+          "name": "BeneficiaryChanged",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x1de958faab3b3fc90e52404888cf6da2afc5da7e",
+      "updated_at": 1510354295904
+    },
+    "1510635589317": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        },
+        "0x768099735d1c322a05a5b9d7b76d99682a1833d3f7055e5ede25e0f2eeaa8c6d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "oldBeneficiary",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "newBeneficiary",
+              "type": "address"
+            }
+          ],
+          "name": "BeneficiaryChanged",
+          "type": "event"
+        },
+        "0xb1af9643f04636cfadfa6a00b5a1e78549c3b466a32658c7a878156cbf3eac40": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "oldShare",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "newShare",
+              "type": "uint256"
+            }
+          ],
+          "name": "BeneficiaryShareChanged",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x739e9b6c27ea0823c5dd9e585eeb40bf9f027c0c",
+      "updated_at": 1510635619601
+    },
+    "1511663107194": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x60e2e7f2d2bb8096614858963b6a4093adae6fa8",
+      "updated_at": 1511665051321
+    },
+    "1511667284538": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xc8295de9874ca899acae293e7f3b4f4647bf3110",
+      "updated_at": 1511667302926
+    },
+    "1511677366853": {
+      "events": {
+        "0x0aeee063a83a6fd084d36a94a60bba880973912697e0dc74a341254fa5c28709": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "newContractAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newContractServiceName",
+              "type": "bytes32"
+            }
+          ],
+          "name": "NewContractDeployed",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x59ba901cf4fd6a483104339da1da11739bf16d4a",
+      "updated_at": 1511677388945
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1511677388945
+}
