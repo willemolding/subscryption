@@ -11,8 +11,8 @@
       <hr>
       <a href="#newContract" role="button" class="btn btn-default btn-lg" data-toggle="modal">Start New Contract Modal (test)</a>
 
-      <div id="newContract" class="modal fade"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+      <div id="newContract" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" id="newContractDialog">
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">X</button>
@@ -26,7 +26,7 @@
                           </div>
                       </div>
 
-                      <div class="navbar-inner hidden" >
+                      <div class="navbar-inner hidden">
                           <div class="navbar-inner">
                               <ul class="nav nav-pills">
                                   <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
@@ -77,13 +77,13 @@
                                       </div>
                                       <button class="btn btn-default previous modal-nav-btn" href="#">Previous Step</button>
                                       <button class="btn btn-default next modal-nav-btn" href="#">Next Step</button>
-                                   </form>
-                                </div>
-                              
+                                  </form>
+                              </div>
+
                           </div>
                           <div class="tab-pane fade" id="step3">
-                              <div class="well"> 
-                              <h2>Summary</h2>
+                              <div class="well">
+                                  <h2>Summary</h2>
                                   <table class="summary-table">
                                       <tr>
                                           <th>App Name</th>
@@ -108,68 +108,90 @@
                           </div>
                       </div>
                   </div>
-                  <!--<div class="modal-footer">
-                      <button class="btn btn-primary">Save changes</button>
-                  </div>-->
               </div>
           </div>
-      </div>
-
-  </div>
-  <!--### END NEW CONTRACT BUTTON/MODAL-->
-
-  <!--### MAKE PAYMENT BUTTON/MODAL-->
-
-  <div class="container">
-      <hr>
-      <a href="#makePayment" role="button" class="btn btn-default btn-lg" data-toggle="modal">Make payment Modal (test)</a>
-
-      <div id="makePayment" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+          <!--<div class="modal-dialog" id ="confirmationDialog" style="visibility:hidden;">
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">X</button>
-
-                      <h3 id="myModalLabel">Make a payment for <span id="appName" style="font-weight: bold;">App Name</span></h3>
+                      <h3 id="myModalLabel">Contract Submitted</h3>
                   </div>
                   <div class="modal-body">
+
                       <div class="tab-content">
-                          <div class="tab-pane fade in active" id="step1">
+                          <div class="tab-pane fade in active">
                               <div class="well">
-                                  <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount();">
-
-                                      <div class="form-group">
-                                          <label for="userID">User ID</label>
-                                          <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="userID" placeholder="123ABC">
+                                  <form id="step1Form">
+                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Name between 3 and 32 characters">
+                                          <label for="appNameInput">App name</label>
+                                          <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
                                       </div>
-
-                                       <label for="subscriptionDurationForm">Duration</label>
-                                     <div class="form-inline" id='subscriptionDurationForm'>
-                                       <input type="number" class="form-control" id="subscriptionDuration" value="1" min="1" max="" step="1">
-                                       <span id="minBillingIntervalDisplay">Weeks</span>
-                                     </div>
-
-                                      <div class="form-group">
-                                          <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
+                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
+                                          <label for="appUrlNameInput">App Url Extension</label>
+                                          <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
+                                          <span id="urlError"></span>
                                       </div>
-
-                                      <button type="submit" class="btn btn-default btn-success">Send Payment</button>
-
+                                      <button class="btn btn-default next modal-nav-btn" href="#">Next Step</button>
                                   </form>
                               </div>
                           </div>
-
                       </div>
                   </div>
-                  <!--<div class="modal-footer">
-                      <button class="btn btn-primary">Save changes</button>
-                  </div>-->
               </div>
+          </div>-->
           </div>
-      </div>
 
-  </div>
-  <!--### END MAKE PAYMENT BUTTON/MODAL-->
+          </div>
+          <!--### END NEW CONTRACT BUTTON/MODAL-->
+          <!--### MAKE PAYMENT BUTTON/MODAL-->
+
+          <div class="container">
+              <hr>
+              <a href="#makePayment" role="button" class="btn btn-default btn-lg" data-toggle="modal">Make payment Modal (test)</a>
+
+              <div id="makePayment" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">X</button>
+
+                              <h3 id="myModalLabel">Make a payment for <span id="appName" style="font-weight: bold;">App Name</span></h3>
+                          </div>
+                          <div class="modal-body">
+                              <div class="tab-content">
+                                  <div class="tab-pane fade in active" id="step1">
+                                      <div class="well">
+                                          <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount();">
+
+                                              <div class="form-group">
+                                                  <label for="userID">User ID</label>
+                                                  <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="userID" placeholder="123ABC">
+                                              </div>
+
+                                              <label for="subscriptionDurationForm">Duration</label>
+                                              <div class="form-inline" id='subscriptionDurationForm'>
+                                                  <input type="number" class="form-control" id="subscriptionDuration" value="1" min="1" max="" step="1">
+                                                  <span id="minBillingIntervalDisplay">Weeks</span>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
+                                              </div>
+
+                                              <button type="submit" class="btn btn-default btn-success">Send Payment</button>
+
+                                          </form>
+                                      </div>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <!--### END MAKE PAYMENT BUTTON/MODAL-->
 
 
 

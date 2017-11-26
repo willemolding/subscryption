@@ -144,7 +144,11 @@ window.App = {
         }
 	},
 
-	deployNewServiceContract: function() {
+    deployNewServiceContract: function () {
+        //$("#newContractDialog").addClass("animated flipOutY");
+        //$("#newContractDialog").addClass("hidden");
+        //$("#confirmationDialog").addClass("animated flipInY");
+
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
 		var priceInWei = web3.toWei(document.getElementById("appPriceInput").value, 'ether');
