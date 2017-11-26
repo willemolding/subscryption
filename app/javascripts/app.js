@@ -49,7 +49,6 @@ window.App = {
 		var hash = window.location.hash.substring(1);
 		console.log(hash);
 		App.renderSendEtherForm(hash);
-        $('#step1Form').change(App.updateNewContractForm);
         $('#step2Form').change(App.updateNewContractForm);
 		$('#addEtherForm').change(App.updateSendEtherForm);
         $("#appBillingPeriodMultiplierInput").hide();
@@ -145,9 +144,11 @@ window.App = {
 	},
 
     deployNewServiceContract: function () {
-        //$("#newContractDialog").addClass("animated flipOutY");
-        //$("#newContractDialog").addClass("hidden");
-        //$("#confirmationDialog").addClass("animated flipInY");
+
+        $('.modal-body').hide(400);
+        $("#please-wait").show(400);
+        $(".close").hide();
+        $('#myModalLabel').html('Deploying contract, please wait');
 
 		var appName = document.getElementById("appNameInput").value;
 		var appUrlName = document.getElementById("appUrlNameInput").value;
@@ -167,7 +168,11 @@ window.App = {
 			//verify that the contract was deployed successfully
 			let txhash = result.tx;
 			console.log("Contract deployment started with transaction hash:");
-			console.log(txhash);
+            console.log(txhash);
+
+            $(".close").show();
+            $('#myModalLabel').html('Deployment Started');
+            $('#deploymentSuccessMessage').html("Contract deployment started with transaction hash: " + txhash)
 			// var newContractAddress = result.logs[0].args.newContractAddress
 			// console.log("New Contract at address: \n"+newContractAddress);
 		}).catch(function(err) {

@@ -4,16 +4,20 @@
   <title>SubsCryption</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <script src="./app.js"></script>
+
 </head>
 <body>
   <!--### NEW CONTRACT BUTTON/MODAL-->
   <div class="container">
+      <img class="spin-image" src="./iconlogo.png" alt="">
+
       <hr>
+
       <a href="#newContract" role="button" class="btn btn-default btn-lg" data-toggle="modal">Start New Contract Modal (test)</a>
 
       <div id="newContract" class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog" id="newContractDialog">
-              <div class="modal-content">
+          <div class="modal-dialog">
+              <div class="modal-content" id="newContractContent">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">X</button>
                       <h3 id="myModalLabel">Create a New Payment Contract</h3>
@@ -108,37 +112,32 @@
                           </div>
                       </div>
                   </div>
+                  <div id="please-wait" style="display:none; min-height: 300px; text-align:center">
+                      <div class="well">
+                          <img class="spin-image" src="./iconlogo.png" alt="">
+                          <div id="deploymentSuccessMessage">
+
+                          </div>
+                      </div>
+                  </div>
               </div>
-          </div>
-          <!--<div class="modal-dialog" id ="confirmationDialog" style="visibility:hidden;">
-              <div class="modal-content">
+              <!--<div class="modal-content" id="confirmationContent" style="display:none;">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">X</button>
-                      <h3 id="myModalLabel">Contract Submitted</h3>
+                      <h3 id="myModalLabel">Contract is being submitted, please wait</h3>
                   </div>
                   <div class="modal-body">
 
                       <div class="tab-content">
                           <div class="tab-pane fade in active">
                               <div class="well">
-                                  <form id="step1Form">
-                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Name between 3 and 32 characters">
-                                          <label for="appNameInput">App name</label>
-                                          <input pattern=".{3,32}" required class="form-control" id="appNameInput" placeholder="My App">
-                                      </div>
-                                      <div class="form-group" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="URL friendly name: lowercase, no spaces or special characters allowed">
-                                          <label for="appUrlNameInput">App Url Extension</label>
-                                          <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="appUrlNameInput" placeholder="my_app">
-                                          <span id="urlError"></span>
-                                      </div>
-                                      <button class="btn btn-default next modal-nav-btn" href="#">Next Step</button>
-                                  </form>
+                                  <img class="image" src="./iconlogo.png" alt="" width="242" height="322">
                               </div>
                           </div>
                       </div>
                   </div>
-              </div>
-          </div>-->
+              </div>-->
+          </div>
           </div>
 
           </div>
