@@ -8,16 +8,11 @@ contract ServiceContractFactory is Ownable {
 
 	ServiceContract[] private deployedContracts;
 	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
-	address public beneficiary;
-	uint256 beneficiaryShare;
+
 
 	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
-	event BeneficiaryChanged(address oldBeneficiary, address newBeneficiary);
-	event BeneficiaryShareChanged(uint256 oldShare, uint256 newShare);
 
-	function ServiceContractFactory(address beneficiary_, uint256 beneficiaryShare_) {
-		beneficiary = beneficiary_;
-		beneficiaryShare = 0;
+	function ServiceContractFactory() {
 		owner = msg.sender;
 	}
 
@@ -28,10 +23,8 @@ contract ServiceContractFactory is Ownable {
 		ServiceContract newContract = new ServiceContract(
 			serviceName, 
 			msg.sender, 
-			beneficiary, 
 			price, 
-			billingPeriod,
-			beneficiaryShare);
+			billingPeriod);
 
 		deployedContracts.push(newContract); 
 		contractIndex[serviceUrlName] = newContract;
@@ -50,17 +43,6 @@ contract ServiceContractFactory is Ownable {
 
 	function getDeployedContractByUrlName(bytes32 serviceUrlName) public constant returns (ServiceContract) {
 		return contractIndex[serviceUrlName];
-	}
-
-	function changeBeneficiary(address newBeneficiary) onlyOwner public {
-		require(newBeneficiary != address(0));
-		BeneficiaryChanged(beneficiary, newBeneficiary);
-		beneficiary = newBeneficiary;
-	}
-
-	function changeBeneficiaryShare(uint256 newShare) onlyOwner public {
-		BeneficiaryShareChanged(beneficiaryShare, newShare);
-		beneficiaryShare = newShare;
 	}
 
 }
