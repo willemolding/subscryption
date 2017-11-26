@@ -11,11 +11,9 @@ contract TestServiceContract {
 	function testContructor() {
 		bytes32 name = "testService";
 		address owner = msg.sender;
-		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
 		uint256 billingPeriod = 1 days;
-		uint256 share = 100 finney;
-		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
+		ServiceContract sc = new ServiceContract(name, owner, price, billingPeriod);
 
 		Assert.equal(price, sc.price(), "price should have been set by constructor");
 		Assert.equal(name, sc.serviceName(), "service name should have been set by constructor");
@@ -25,11 +23,9 @@ contract TestServiceContract {
 	function testEnablingUserWithExactPayment() {
 		bytes32 name = "testService";
 		address owner = msg.sender;
-		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
 		uint256 billingPeriod = 0;
-		uint256 share = 100 finney;
-		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
+		ServiceContract sc = new ServiceContract(name, owner, price, billingPeriod);
 
 		bytes6 userID = "123456";
 		Assert.equal(sc.isEnabled(userID), false, "User has not paid so function should return false");
@@ -43,11 +39,9 @@ contract TestServiceContract {
 	function testEnablingUserWithExcessPayment() {
 		bytes32 name = "testService";
 		address owner = msg.sender;
-		address beneficiary = msg.sender;
 		uint256 price = 1 ether;
 		uint256 billingPeriod = 0;
-		uint256 share = 100 finney;
-		ServiceContract sc = new ServiceContract(name, owner, beneficiary, price, billingPeriod, share);
+		ServiceContract sc = new ServiceContract(name, owner, price, billingPeriod);
 
 		bytes6 userID = "123456";
 		Assert.equal(sc.isEnabled(userID), false, "User has not paid so function should return false");
