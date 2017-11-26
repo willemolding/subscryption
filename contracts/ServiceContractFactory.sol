@@ -9,7 +9,7 @@ contract ServiceContractFactory {
 	mapping(bytes32 => ServiceContract) private contractIndex; // maps service url-name to a deployed contract address
 
 
-	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractServiceName);
+	event NewContractDeployed(address indexed newContractAddress, bytes32 indexed newContractUrlName);
 
 	function deployNewContract(bytes32 serviceName, bytes32 serviceUrlName, uint256 price, uint256 billingPeriod) external returns (ServiceContract) {
 		require(contractIndex[serviceUrlName] == address(0)); //require this url-name is not alread in use
@@ -23,7 +23,7 @@ contract ServiceContractFactory {
 		deployedContracts.push(newContract); 
 		contractIndex[serviceUrlName] = newContract;
 
-		NewContractDeployed(newContract, serviceName);
+		NewContractDeployed(newContract, serviceUrlName);
 		return newContract;
 	}
 
