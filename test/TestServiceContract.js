@@ -17,38 +17,29 @@ contract('ServiceContract', function(accounts) {
 		var userID = "123456";
 		var weiToSend = web3.toWei(5, 'ether');
 
-		var acc0InitialBalance = web3.eth.getBalance(accounts[1]).toNumber();
-		var acc1InitialBalance = web3.eth.getBalance(accounts[2]).toNumber();
+		var accInitialBalance = web3.eth.getBalance(accounts[1]);
 
-		// console.log("account 0 initial balance "+acc0InitialBalance);
-		// console.log("account 1 initial balance "+acc1InitialBalance);
+		console.log("account initial balance "+accInitialBalance);
 
-		var benefShareFraction = web3.toWei(10, 'finney') / web3.toWei(1, 'ether');
-		console.log("beneficiary share is "+benefShareFraction);
 
 		return ServiceContract
 		.new(
 			"name",
 			accounts[1],
-			accounts[2],
 			web3.toWei(1, 'ether'),
-			0, //one-time-purchase contract
-			web3.toWei(10, 'finney')
+			0 //one-time-purchase contract
 			)
 		.then(function(instance) {
 			contractInstance = instance;
 			return contractInstance.addEther(userID, {from: accounts[0], value: weiToSend});
 		})
 		.then(function(result) {
-			var acc0FinalBalance = web3.eth.getBalance(accounts[1]).toNumber()
-			var acc1FinalBalance = web3.eth.getBalance(accounts[2]).toNumber()
+			var accFinalBalance = web3.eth.getBalance(accounts[1])
 
-			// console.log("account 0 final balance "+acc0FinalBalance);
-			// console.log("account 1 final balance "+acc1FinalBalance);
+			console.log("account final balance "+accFinalBalance);
 
 			assert.equal(web3.eth.getBalance(contractInstance.address).toNumber(), 0, "Transferred value should have been distributed");
-			assert.equal(acc0FinalBalance, acc0InitialBalance + weiToSend*(1.0-benefShareFraction), "Account 0 should receive owners cut");
-			assert.equal(acc1FinalBalance, acc1InitialBalance + weiToSend*benefShareFraction, "Account 1 should beneficiarys cut");
+			assert.equal(accFinalBalance.toNumber(), accInitialBalance.add(weiToSend).toNumber(), "Account 0 should receive owners cut");
 		});
 	});
 
@@ -63,10 +54,8 @@ contract('ServiceContract', function(accounts) {
 		.new(
 			"name",
 			accounts[0],
-			accounts[1],
 			price,
 			100000, // billing period. 1 *price* gets you a subscription for this many seconds
-			0 // no cut for the dev
 			)
 		.then(function(instance) {
 			contractInstance = instance;
@@ -98,16 +87,13 @@ contract('ServiceContract', function(accounts) {
 	it("Should allow price to be changed by the owner", function () {
 		let contractInstance;
 		let owner = accounts[1];
-		let beneficiary = accounts[2];
 
 		return ServiceContract
 		.new(
 			"name",
 			owner,
-			beneficiary,
 			web3.toWei(1, 'ether'),
-			0, //one-time-purchase contract
-			web3.toWei(10, 'finney'))
+			0)
 		.then(function(instance) {
 			contractInstance = instance;
 			return contractInstance.price();
@@ -126,22 +112,19 @@ contract('ServiceContract', function(accounts) {
 	it("Should NOT allow price to be changed by another address", function () {
 		let contractInstance;
 		let owner = accounts[1];
-		let beneficiary = accounts[2];
 
 		return ServiceContract
 		.new(
 			"name",
 			owner,
-			beneficiary,
 			web3.toWei(1, 'ether'),
-			0, //one-time-purchase contract
-			web3.toWei(10, 'finney'))
+			0)
 		.then(function(instance) {
 			contractInstance = instance;
 			return contractInstance.price();
 		})
 		.then(function (price){
-			return contractInstance.changePrice(web3.toWei(1, 'finney'), {from: beneficiary});
+			return contractInstance.changePrice(web3.toWei(1, 'finney'), {from: accounts[2]});
 		})
 		.then(assert.fail)
         .catch(function(error) {
@@ -163,16 +146,13 @@ contract('ServiceContract', function(accounts) {
 	it("Should allow billing period to be changed by the owner", function () {
 		let contractInstance;
 		let owner = accounts[1];
-		let beneficiary = accounts[2];
 
 		return ServiceContract
 		.new(
 			"name",
 			owner,
-			beneficiary,
 			web3.toWei(1, 'ether'),
-			0, //one-time-purchase contract
-			web3.toWei(10, 'finney'))
+			0)
 		.then(function(instance) {
 			contractInstance = instance;
 			return contractInstance.billingPeriod();
@@ -192,22 +172,19 @@ contract('ServiceContract', function(accounts) {
 	it("Should NOT allow billing period to be changed by another address", function () {
 		let contractInstance;
 		let owner = accounts[1];
-		let beneficiary = accounts[2];
 
 		return ServiceContract
 		.new(
 			"name",
 			owner,
-			beneficiary,
 			web3.toWei(1, 'ether'),
-			0, //one-time-purchase contract
-			web3.toWei(10, 'finney'))
+			0)
 		.then(function(instance) {
 			contractInstance = instance;
 			return contractInstance.billingPeriod();
 		})
 		.then(function (billingPeriod){
-			return contractInstance.changeBillingPeriod(10, {from: beneficiary});
+			return contractInstance.changeBillingPeriod(10, {from: accounts[2]});
 		})
 		.then(assert.fail)
         .catch(function(error) {
