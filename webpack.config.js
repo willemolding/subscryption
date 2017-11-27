@@ -1,5 +1,7 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 var webpack = require("webpack");
 
 
@@ -11,9 +13,12 @@ module.exports = {
   },
   plugins: [
     // Copy our app's index.html to the build folder.
-    new CopyWebpackPlugin([
-      { from: './app/index.html', to: "index.html" }
-    ]),
+    // new CopyWebpackPlugin([
+    //   { from: './app/index.html', to: "index.html" }
+    // ]),
+    new HtmlWebpackPlugin({
+      template: './app/index.html', // Load a custom template (lodash by default see the FAQ for details)
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
@@ -36,6 +41,8 @@ module.exports = {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
         use: 'file-loader',
       },
+      { test: /\.png$/, use: [ "url-loader?mimetype=image/png" ] },
+
     ],
     loaders: [
       { test: /\.json$/, use: 'json-loader' },
@@ -47,7 +54,8 @@ module.exports = {
           presets: ['es2015'],
           plugins: ['transform-runtime']
         }
-      }
+      },
+      { test: /\.(html)$/, use:  'html-loader' },
     ]
   }
 }
