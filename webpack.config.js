@@ -36,11 +36,10 @@ module.exports = {
         use: 'url-loader?limit=10000',
       },
       {
-        test: /\.(ttf|eot|svg|jpg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
+        test: /\.(ttf|eot|png|jp(e*)g|svg)(\?[\s\S]+)?$/,
+        loader: "url-loader?limit=5000&name=img/img-[hash:6].[ext]"
       },
-      { test: /\.png$/, use: [ "url-loader?mimetype=image/png" ] },
-
+      // { test: /\.png$/, use: [ "url-loader?mimetype=image/png" ] },
     ],
     loaders: [
       { test: /\.json$/, use: 'json-loader' },

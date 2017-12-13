@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Subscryption</title>    
-    <link rel="icon" href="img/iconlogo-browser.png">
+    <link rel="icon" href="<%= require("./img/iconlogo.png") %>">
     <style>
     <%= require("css-loader!./css/style.css") %>
     <%= require("css-loader!./css/style2.css") %>
@@ -26,7 +26,7 @@
         <span class="icon-bar"></span>
       &#9776;</button>
       <aicon class="navbar-brand" href="#">
-        <image id="iconlogo" src="img/iconlogo.png" height="%50" width="%50" alt="SUBSCRYPTION"/>
+        <image id="iconlogo" src="<%= require("./img/iconlogo.png") %>" height="%50" width="%50" alt="SUBSCRYPTION"/>
       </aicon>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,12 +42,12 @@
   </div><!-- /.container-fluid -->
 </nav>
     
-    <section class="probootstrap-hero" style="background-image: url(img/image_1.jpg);" data-section="home">
+    <section class="probootstrap-hero" style="background-image: url(<%= require("./img/image_1.jpg") %>)" data-section="home">
       <div class="container probootstrap-animate">
         <div class="row intro-text">
           <div id="tagline" class="col-md-8 col-md-offset-2 text-center">
             <h1 class="probootstrap-heading probootstrap-animate">
-              <image id="textlogo" src="img/textlogo.png" height="%50" width="%50" alt="SUBSCRYPTION"/>
+              <image id="textlogo" src="<%= require("./img/textlogo.png") %>" height="%50" width="%50" alt="SUBSCRYPTION"/>
             </h1>
             <div class="probootstrap-subheading center">
               <p class="probootstrap-animate"><a href="https://www.youtube.com/watch?v=ai_BNG9M7eE" target="_blank" role="button" class="btn btn-primary">Get it now!</a><a href="#features" class="btn btn-default smoothscroll" role="button">Features</a></p>
@@ -100,7 +100,7 @@
         <!-- END row -->
         <div class="row mb100">
           <div class="col-md-8 col-md-pull-2 probootstrap-animate">
-            <p><img src="img/img_showcase_1.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+            <p><img src="<%= require("./img/img_showcase_1.jpg") %>" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
           </div>
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
             <h3 class="text-primary probootstrap-heading-2">Make Transaction Fees Obsolete</h3>
@@ -116,7 +116,7 @@
         <div class="row mb100">
           <!-- <div class="col-md-8 col-md-pull-2"> -->
           <div class="col-md-8 col-md-push-5 probootstrap-animate">
-            <p><img src="img/img_showcase_2.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+            <p><img src="<%= require("./img/img_showcase_2.jpg") %>" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
           </div>
           <!-- <div class="col-md-4 col-md-pull-1"> -->
           <div class="col-md-4 col-md-pull-8 probootstrap-section-heading">
@@ -133,7 +133,7 @@
 
         <div class="row mb100">
           <div class="col-md-8 col-md-pull-2 probootstrap-animate">
-            <p><img src="img/img_showcase_3.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+            <p><img src="<%= require("./img/img_showcase_3.jpg") %>" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
           </div>
           <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
             <h3 class="text-primary probootstrap-heading-2">Powered by the Ethereum Network</h3>
@@ -234,7 +234,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/willem.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/willem.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star"></i>
@@ -250,7 +250,7 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/will.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/will.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star"></i>
@@ -267,7 +267,7 @@
           <div class="clearfix visible-sm-block"></div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/ben.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/ben.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star"></i>
@@ -283,7 +283,7 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/lachlan.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/lachlan.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star"></i>
@@ -300,7 +300,7 @@
           <div class="clearfix visible-sm-block"></div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/brett.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/brett.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star-outlined"></i>
@@ -316,7 +316,7 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="probootstrap-testimonial">
-              <p><img src="img/harambe.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p><img src="<%= require("./img/harambe.jpg") %>" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
               <p class="mb10 probootstrap-rate">
                 <i class="icon-star"></i>
                 <i class="icon-star"></i>
@@ -348,7 +348,7 @@
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-12">
-                <p><img src="img/laptop_1.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive"></p>
+                <p><img src="<%= require("./img/laptop_1.jpg") %>" alt="Free Template by ProBootstrap.com" class="img-responsive"></p>
               </div>
             </div>
             <div class="row">
