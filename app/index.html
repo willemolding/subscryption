@@ -1,28 +1,458 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>SubsCryption</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <script src="./app.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Subscryption</title>    
+    <link rel="icon" href="img/iconlogo-browser.png">
+    <style>
+    <%= require("css-loader!./css/style.css") %>
+    <%= require("css-loader!./css/style2.css") %>
+    <%= require("css-loader!./css/styles-merged.css") %>
+    <%= require("css-loader!./fonts/icomoon/style.css") %>
+    </style>
+  </head>
+  <body>
+    
 
-</head>
-<body>
-  <div class="container">
-    <hr>
-    <a href="#newContract" role="button" class="btn btn-default btn-lg" data-toggle="modal">Start New Contract Modal (test)</a>
+  <nav class="navbar" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button id="menuicon" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      &#9776;</button>
+      <aicon class="navbar-brand" href="#">
+        <image id="iconlogo" src="img/iconlogo.png" height="%50" width="%50" alt="SUBSCRYPTION"/>
+      </aicon>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" id="myTopnav">
+            <li><a href="#" data-nav-section="home">Home</a></li>
+            <li><a href="#" data-nav-section="features">Features</a></li>
+            <li><a href="#" data-nav-section="pricing">Pricing</a></li>
+            <li><a href="#" data-nav-section="reviews">Reviews</a></li>
+            <li><a href="#" data-nav-section="contact">Contact</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    
+    <section class="probootstrap-hero" style="background-image: url(img/image_1.jpg);" data-section="home">
+      <div class="container probootstrap-animate">
+        <div class="row intro-text">
+          <div id="tagline" class="col-md-8 col-md-offset-2 text-center">
+            <h1 class="probootstrap-heading probootstrap-animate">
+              <image id="textlogo" src="img/textlogo.png" height="%50" width="%50" alt="SUBSCRYPTION"/>
+            </h1>
+            <div class="probootstrap-subheading center">
+              <p class="probootstrap-animate"><a href="https://www.youtube.com/watch?v=ai_BNG9M7eE" target="_blank" role="button" class="btn btn-primary">Get it now!</a><a href="#features" class="btn btn-default smoothscroll" role="button">Features</a></p>
+            </div>
+            <br><br>A peer to peer smart contract<br>payment system with the Ethereum network
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <%= require('html-loader!./new-contract.html') %>
-  </div>
+    <section class="probootstrap-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="probootstrap-service-item probootstrap-animate" data-animate-effect="fadeIn">
+              <span class="icon icon-phone3"></span>
+              <h2>Accept in app payments</h2>
+              <p>Accept payments within your app directly from users with Subscryption. Subscryption is the perfect tool for monetising your apps in environments without means of payments.</p>
+              <p><a href="#" class="probootstrap-link">Learn More <i class="icon-chevron-right"></i></a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-service-item probootstrap-animate" data-animate-effect="fadeIn">
+              <span class="icon icon-wallet2"></span>
+              <h2>Peer to Peer Payments</h2>
+              <p>Remove the middle man and stop paying transaction fees. Subscryption allows you to accept payments directly from your users through the deployment of Ethereum smart contracts without the presence of a third party.</p>
+              <p><a href="#" class="probootstrap-link">Learn More <i class="icon-chevron-right"></i></a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-service-item probootstrap-animate" data-animate-effect="fadeIn">
+              <span class="icon icon-lightbulb"></span>
+              <h2>Simple to Implement</h2>
+              <p>No need to run a full Ethereum node! It's easy to implement Subscryption in your project. Setting up a payment contract can be done in just five lines of code and transactions can be verified in just one!</p>
+              <p><a href="#" class="probootstrap-link">Learn More <i class="icon-chevron-right"></i></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="probootstrap-section probootstrap-bg-light" id="features" data-section="features">
+      <div class="container">
+        <div class="row text-center mb100">
+          <div class="col-md-8 col-md-offset-2 probootstrap-section-heading">
+            <h2 class="mb30 text-black probootstrap-heading">Advantages</h2>
+            <p>Subscryption allows you to deploy smart contracts on the Ethereum network within your app to accept payments directly from your users without the presence of a third entity.</p>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row mb100">
+          <div class="col-md-8 col-md-pull-2 probootstrap-animate">
+            <p><img src="img/img_showcase_1.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+          </div>
+          <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
+            <h3 class="text-primary probootstrap-heading-2">Make Transaction Fees Obsolete</h3>
+            <p><p>Say goodbye to the bank and paypal! Because Subsryption operates on the Ethereum network, there are no transaction fees! Accept payments directly from your users without the involvement of a third party.</p></p>
+            <ul id="background-fix" class="probootstrap-list">
+              <li class="probootstrap-check">No transaction fees</li>
+              <li class="probootstrap-check">Peer to peer payments</li>
+              <li class="probootstrap-check">No third parties</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row mb100">
+          <!-- <div class="col-md-8 col-md-pull-2"> -->
+          <div class="col-md-8 col-md-push-5 probootstrap-animate">
+            <p><img src="img/img_showcase_2.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+          </div>
+          <!-- <div class="col-md-4 col-md-pull-1"> -->
+          <div class="col-md-4 col-md-pull-8 probootstrap-section-heading">
+            <h3 class="text-primary probootstrap-heading-2">Easy Integration</h3>
+            <p><p>Subscryption is easy to incorporate into your project and takes only a few lines of code.</p></p>
+            <ul id="background-fix" class="probootstrap-list">
+              <li class="probootstrap-check">Incredibly easy to setup</li>
+              <li class="probootstrap-check">Extremey easy to use</li>
+              <li class="probootstrap-check">Great docs and tutorials</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END row -->
 
+        <div class="row mb100">
+          <div class="col-md-8 col-md-pull-2 probootstrap-animate">
+            <p><img src="img/img_showcase_3.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive probootstrap-shadow"></p>
+          </div>
+          <div class="col-md-4 col-md-pull-1 probootstrap-section-heading">
+            <h3 class="text-primary probootstrap-heading-2">Powered by the Ethereum Network</h3>
+            <p><p>Because transactions are run on the Ethereum network the transfer of funds is almost instant. No more waiting for transactions to clear.</p></p>
+            <ul id="background-fix" class="probootstrap-list">
+              <li class="probootstrap-check">Fast transaction times</li>
+              <li class="probootstrap-check">Run on the secure Ethereum network</li>
+              <li class="probootstrap-check">Get paid in Ether</li>
+            </ul>
+          </div>
+        </div>
+        <!-- END row -->
+      </div>
+    </section>
+    <!-- END section -->
 
-  <div class="container">
-    <hr>
-    <a href="#makePayment" role="button" class="btn btn-default btn-lg" data-toggle="modal">Make payment Modal (test)</a>
+    <section class="probootstrap-section" id="howwork" data-section="howwork">
+      <div class="container">
+        <div class="row text-center mb100">
+          <div class="probootstrap-section-heading">
+            <h2 class="mb30 text-black probootstrap-heading">How does it work?</h2>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <%= require('html-loader!./make-payment.html') %>
+    <section class="probootstrap-section" data-section="diagram">
+      <div class="container" id="div-diagram">
+        <iframe id="diagram" src="diagram/Subscryption-diagram.html" width="1600px" height="1600px">
+          <p>Your browser does not support iframes.</p>
+        </iframe>
+      </div>
+    </section>
 
-  </div>
+    <section class="probootstrap-section" data-section="pricing">
+      <div class="container">
+        <div class="row text-center mb100">
+          <div class="col-md-8 col-md-offset-2 probootstrap-section-heading">
+            <h2 class="mb30 text-black probootstrap-heading">Choose your version</h2>
+            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="probootstrap-pricing">
+              <h2>Freeware</h2>
+              <p class="probootstrap-price"><strong>Free</strong></p>
+              <p class="probootstrap-note">No payment required.</p>
+              <ul class="probootstrap-list text-left mb50">
+                <li class="probootstrap-check">Deploy smart contracts</li>
+                <li class="probootstrap-check">Accept payments from users</li>
+                <li class="probootstrap-check">Funds sent instantly</li>
+              </ul>
+              <p><a href="#" class="btn btn-black">Select</a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-pricing probootstrap-popular probootstrap-shadow">
+              <h2>Proware</h2>
+              <p class="probootstrap-price"><strong>$9.99</strong></p>
+              <p class="probootstrap-note">This is a monthly recurring payment.</p>
+              <ul class="probootstrap-list text-left mb50">
+                <li class="probootstrap-check">Adds removed</li>
+                <li class="probootstrap-check">Integrate your apps theme</li>
+                <li class="probootstrap-check">No transaction limits</li>
+              </ul>
+              <p><a href="#" class="btn btn-primary">Get Started</a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-pricing">
+              <h2>Premiumware</h2>
+              <p class="probootstrap-price"><strong>$29.99</strong></p>
+              <p class="probootstrap-note">This is a monthly recurring payment.</p>
+              <ul class="probootstrap-list text-left mb50">
+                <li class="probootstrap-check">Track transactions in real-time</li>
+                <li class="probootstrap-check">Analytical reports</li>
+                <li class="probootstrap-check">Shit out golden eggs</li>
+              </ul>
+              <p><a href="#" class="btn btn-black">Get Started</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END section -->
 
-</body>
+     <section class="probootstrap-section probootstrap-bg-light" data-section="reviews">
+      <div class="container">
+        <div class="row text-center mb100">
+          <div class="col-md-8 col-md-offset-2 probootstrap-section-heading">
+            <h2 class="mb30 text-black probootstrap-heading">What do people think?</h2>
+            <p>See what others have to say about Subscryption transactions</p>
+          </div>
+        </div>
+        <!-- END row -->
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/willem.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+              </p>
+              <blockquote>
+                <p>This is so great! Man so so so great! I can't believe it! Like 5 lines of code and it works! Damn!!.</p>
+              </blockquote>
+              <p class="mb0">&mdash; Willem Olding</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/will.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+              </p>
+              <blockquote>
+                <p>I'll check it after work. Lorem Ipsum decided to leave for the far World of Grammar. Lorem Ipsum decided Lorem Ipsum decided.</p>
+              </blockquote>
+              <p class="mb0">&mdash; Will Jones</p>
+            </div>
+          </div>
+          <div class="clearfix visible-sm-block"></div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/ben.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+              </p>
+              <blockquote>
+                <p>I'm goig to use this while I travel the world! Also it's going to completely automate Fishy Business, which means more vagabonding for me! How great a system is this! Lorem Ipsum decided Lorem Ipsum decided Lorem Ipsum decided.</p>
+              </blockquote>
+              <p class="mb0">&mdash; Ben Cooper</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/lachlan.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+              </p>
+              <blockquote>
+                <p>Smsahin piece of software! Probably the best I've ever seen. This is better than Ethereum itself! Lorem Ipsum decided Lorem Ipsum decided Lorem Ipsum decided.</p>
+              </blockquote>
+              <p class="mb0">&mdash; Lachlan Phillips</p>
+            </div>
+          </div>
+          <div class="clearfix visible-sm-block"></div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/brett.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star-outlined"></i>
+                <i class="icon-star-outlined"></i>
+                <i class="icon-star-outlined"></i>
+                <i class="icon-star-outlined"></i>
+              </p>
+              <blockquote>
+                <p>This thing is a bastard fuck ya Bardems!</p>
+              </blockquote>
+              <p class="mb0">&mdash; Brett Johnston</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="probootstrap-testimonial">
+              <p><img src="img/harambe.jpg" class="img-responsive img-circle probootstrap-author-photo" alt="Free Template by ProBootstrap.com"></p>
+              <p class="mb10 probootstrap-rate">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+              </p>
+              <blockquote>
+                <p>If I was still alive I would totally have some applications I could use this for. But I'm dead...</p>
+              </blockquote>
+              <p class="mb0">&mdash; Harambe</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="probootstrap-section">
+      <div class="container">
+         <div class="row text-center mb100">
+          <div class="col-md-8 col-md-offset-2 probootstrap-section-heading">
+            <h2 class="mb30 text-black probootstrap-heading">Try It Today</h2>
+            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+            <p><a href="#" class="btn btn-primary">Get It Now</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <p><img src="img/laptop_1.jpg" alt="Free Template by ProBootstrap.com" class="img-responsive"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="text-black probootstrap-check-2"> What is Instant?</h4>
+                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+
+                <h4 class="text-black probootstrap-check-2">How do I use the new features of Frame App?</h4>
+                <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. </p>
+              </div>
+              <div class="col-md-6">
+                <h4 class="text-black probootstrap-check-2">Is this available to my country?</h4>
+                <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
+                </p>
+
+                <h4 class="text-black probootstrap-check-2">I have technical problem who do I email?</h4>
+                <p>But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END section -->
+
+    <section class="probootstrap-section probootstrap-cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 text-center">
+            <h2 class="probootstrap-heading">Remove the middle man, start using Subscryption!</h2>
+            <p class="probootstrap-sub-heading">But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they held her for their.</p>
+            <p><a href="#" class="btn btn-black">Get Started</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <section class"probootstrap-section probootstrap-cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <h2 class="probootstrap-heading">Join With Over 100K Members</h2>
+            <p class="probootstrap-sub-heading">But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- END section -->
+    <section class="probootstrap-section probootstrap-bg-light" data-section="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <form action="" class="probootstrap-form">
+              <h2 class="text-black mt0">Get In Touch</h2>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Your Name">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your Email">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your Phone">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control"cols="30" rows="10" placeholder="Write a Message"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Sebd Message">
+              </div>
+            </form>
+          </div>
+          <div class="col-md-3 col-md-push-1">
+            <ul id="background-fix" class="probootstrap-contact-details">
+              <li>
+                <span class="text-uppercase">Email</span>
+                subscryption@gmail.com
+              </li>
+              <li>
+                <span class="text-uppercase">Address</span>
+                San Francisco, CA <br>
+                4th Floor8 Lower  <br>
+                San Francisco street, M1 50F
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <footer class="probootstrap-footer">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="probootstrap-social"><a href="#"><i class="icon-twitter"></i></a> <a href="#"><i class="icon-facebook2"></i></a> <a href="#"><i class="icon-instagram2"></i></a><a href="#"><i class="icon-linkedin"></i></a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            &copy; 2017 <a href="https://www.youtube.com/watch?v=ai_BNG9M7eE">Subscryption</a>. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://www.youtube.com/watch?v=ai_BNG9M7eE">some cool fellas!</a> <br> Diagram vectors by <a href="https://www.freepik.com">Freepik</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
 </html>
