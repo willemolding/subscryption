@@ -1,47 +1,47 @@
  <!--### MAKE PAYMENT BUTTON/MODAL-->
 
-          <div class="container">
+<div class="container">
 
-              <div id="makePayment" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">X</button>
+    <div id="makePayment" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">X</button>
 
-                              <h3 id="myModalLabel">Make a payment for <span id="appName" style="font-weight: bold;">App Name</span></h3>
-                          </div>
-                          <div class="modal-body">
-                              <div class="tab-content">
-                                  <div class="tab-pane fade in active" id="step1">
-                                      <div class="well">
-                                          <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount();">
+                    <h3 id="myModalLabel">Make a payment for <span id="appName" style="font-weight: bold;">App Name</span></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="step1">
+                            <div class="well">
+                                <form id="addEtherForm" onsubmit="event.preventDefault(); App.addEtherToAccount();">
 
-                                              <div class="form-group">
-                                                  <label for="userID">User ID</label>
-                                                  <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="userID" placeholder="123ABC">
-                                              </div>
+                                    <div class="form-group">
+                                        <label for="userID">User ID</label>
+                                        <input pattern="[a-zA-Z0-9_-]{3,32}" required class="form-control" id="userID" placeholder="123ABC">
+                                    </div>
 
-                                              <label for="subscriptionDurationForm">Duration</label>
-                                              <div class="form-inline" id='subscriptionDurationForm'>
-                                                  <input type="number" class="form-control" id="subscriptionDuration" value="1" min="1" max="" step="1">
-                                                  <span id="minBillingIntervalDisplay">Weeks</span>
-                                              </div>
+                                    <label for="subscriptionDurationForm">Duration</label>
+                                    <div class="form-inline" id='subscriptionDurationForm'>
+                                        <input type="number" class="form-control" id="subscriptionDuration" value="1" min="1" max="" step="1">
+                                        <span id="minBillingIntervalDisplay">Weeks</span>
+                                    </div>
 
-                                              <div class="form-group">
-                                                  <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
-                                              </div>
+                                    <div class="form-group">
+                                        <h2>Total payment: <span id="totalPayment" style="font-weight: bold;">0</span> Ether</h2>
+                                    </div>
 
-                                              <button type="submit" class="btn btn-default btn-success">Send Payment</button>
+                                    <button type="submit" class="btn btn-default btn-success">Send Payment</button>
 
-                                          </form>
-                                      </div>
-                                  </div>
+                                </form>
+                            </div>
+                        </div>
 
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-          </div>
-          <!--### END MAKE PAYMENT BUTTON/MODAL-->
+</div>
+<!--### END MAKE PAYMENT BUTTON/MODAL-->

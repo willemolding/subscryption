@@ -50,7 +50,10 @@
               <image id="textlogo" src="<%= require("./img/textlogo.png") %>" height="%50" width="%50" alt="SUBSCRYPTION"/>
             </h1>
             <div class="probootstrap-subheading center">
-              <p class="probootstrap-animate"><a href="https://www.youtube.com/watch?v=ai_BNG9M7eE" target="_blank" role="button" class="btn btn-primary">Get it now!</a><a href="#features" class="btn btn-default smoothscroll" role="button">Features</a></p>
+              <p class="probootstrap-animate">
+                <a href="#newContract" target="_blank" role="button" class="btn btn-primary" data-toggle="modal">Create!</a>
+                <a href="#newContract" target="_blank" role="button" class="btn btn-primary" data-toggle="modal">Pay!</a>
+                <a href="#features" class="btn btn-default smoothscroll" role="button">Features</a></p>
             </div>
             <br><br>A peer to peer smart contract<br>payment system with the Ethereum network
           </div>
@@ -437,7 +440,10 @@
         </div>
       </div>
     </section>
-    
+
+    <%= require('html-loader!./new-contract.html') %>
+    <%= require('html-loader!./make-payment.html') %>
+
 
     <footer class="probootstrap-footer">
       <div class="container text-center">

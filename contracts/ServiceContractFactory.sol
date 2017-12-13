@@ -39,4 +39,4 @@ contract ServiceContractFactory {
 		return contractIndex[serviceUrlName];
 	}
 
-}cd w
+}
