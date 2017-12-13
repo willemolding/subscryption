@@ -1,4 +1,5 @@
 import "./scripts.js"
+import "./app.js"
 
 
 (function() {
